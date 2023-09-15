@@ -5,7 +5,7 @@ project(image_editor_core LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(image_editor_core main.cpp
+add_executable(image_editor_core
     domain/pixel.h domain/pixel.cpp
     algorithms/algorithm.h algorithms/algorithm.cpp
     domain/image.h domain/image.cpp
