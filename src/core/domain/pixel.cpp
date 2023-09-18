@@ -14,17 +14,17 @@ Pixel::Pixel(int red, int green, int blue)
     _blue = blue;
 }
 
-int Pixel::get_red()
+int Pixel::red()
 {
     return _red;
 }
 
-int Pixel::get_green()
+int Pixel::green()
 {
     return _green;
 }
 
-int Pixel::get_blue()
+int Pixel::blue()
 {
     return _blue;
 }

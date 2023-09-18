@@ -2,5 +2,4 @@
 
 Algorithm::Algorithm()
 {
-
 }

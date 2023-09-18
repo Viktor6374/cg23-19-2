@@ -16,22 +16,22 @@ Image::Image(int width, int height, std::vector<Pixel> pixels)
     _pixels = pixels;
 }
 
-int Image::get_width()
+int Image::width()
 {
     return _width;
 }
 
-int Image::get_height()
+int Image::height()
 {
     return _height;
 }
 
-const std::vector<Pixel>& Image::get_pixels()
+const std::vector<Pixel>& Image::pixels()
 {
     return _pixels;
 }
 
-Pixel Image::get_pixel_at(int x, int y)
+Pixel Image::pixel_at(int x, int y)
 {
     return _pixels[x + y * _width];
 }

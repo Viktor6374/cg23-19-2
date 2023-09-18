@@ -1,7 +1,6 @@
 #ifndef PIXEL_H
 #define PIXEL_H
 
-
 class Pixel
 {
 public:
@@ -9,9 +8,9 @@ public:
 
     Pixel(int red, int green, int blue);
 
-    int get_red();
-    int get_green();
-    int get_blue();
+    int red();
+    int green();
+    int blue();
 
 private:
     int _red;

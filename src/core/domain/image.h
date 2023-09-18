@@ -1,8 +1,8 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-#include <vector>
 #include "pixel.h"
+#include <vector>
 
 class Image
 {
@@ -10,12 +10,12 @@ public:
     Image();
     Image(int width, int height, std::vector<Pixel> pixels);
 
-    int get_width();
-    int get_height();
+    int width();
+    int height();
 
-    const std::vector<Pixel>& get_pixels();
+    const std::vector<Pixel>& pixels();
 
-    Pixel get_pixel_at(int x, int y);
+    Pixel pixel_at(int x, int y);
 
 private:
     int _width;

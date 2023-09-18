@@ -8,7 +8,7 @@ class Algorithm
 public:
     Algorithm();
 
-    virtual Image Execute() = 0;
+    virtual Image execute() = 0;
 };
 
 #endif // ALGORITHM_H
