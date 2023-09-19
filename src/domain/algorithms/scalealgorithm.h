@@ -2,7 +2,7 @@
 #define SCALEALGORITHM_H
 
 #include "algorithm.h"
-#include "../domain/image.h"
+#include "../entities/image.h"
 
 class ScaleAlgorithm : public Algorithm
 {

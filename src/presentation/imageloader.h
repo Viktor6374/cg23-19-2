@@ -2,7 +2,7 @@
 #define IMAGELOADER_H
 
 #include <string>
-#include "../core/domain/image.h"
+#include "../domain/entities/image.h"
 
 class ImageLoader
 {

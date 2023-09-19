@@ -8,7 +8,7 @@ Image::Image()
     _pixels = std::vector<Pixel>();
 }
 
-Image::Image(int width, int height, std::vector<Pixel> pixels)
+Image::Image(int width, int height, const std::vector<Pixel>& pixels)
 {
     _width = width;
     _height = height;
@@ -31,7 +31,7 @@ const std::vector<Pixel>& Image::pixels()
     return _pixels;
 }
 
-Pixel Image::pixel_at(int x, int y)
+const Pixel& Image::pixel_at(int x, int y)
 {
     return _pixels[x + y * _width];
 }

@@ -20,19 +20,19 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
 
-        core/domain/pixel.h
-        core/domain/pixel.cpp
-        core/domain/image.h
-        core/domain/image.cpp
-        core/algorithms/algorithm.h
-        core/algorithms/algorithm.cpp
-        core/algorithms/scalealgorithm.h
-        core/algorithms/scalealgorithm.cpp
+        domain/entities/pixel.h
+        domain/entities/pixel.cpp
+        domain/entities/image.h
+        domain/entities/image.cpp
+        domain/algorithms/algorithm.h
+        domain/algorithms/algorithm.cpp
+        domain/algorithms/scalealgorithm.h
+        domain/algorithms/scalealgorithm.cpp
 
-        client/imageloader.h
-        client/imageloader.cpp
-        client/imageconverter.h
-        client/imageconverter.cpp
+        presentation/imageloader.h
+        presentation/imageloader.cpp
+        presentation/imageconverter.h
+        presentation/imageconverter.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
