@@ -1,15 +1,11 @@
 #include "scalealgorithm.h"
 #include <cmath>
 
-ScaleAlgorithm::ScaleAlgorithm(Image image, double scale)
+ScaleAlgorithm::ScaleAlgorithm()
 {
-    _image = image;
-    _scale = scale;
 }
 
-Image ScaleAlgorithm::execute()
+Image ScaleAlgorithm::execute(const Image &image, double scale)
 {
-    double k = sqrt(_scale);
-
     return Image();
 }

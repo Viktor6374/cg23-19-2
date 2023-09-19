@@ -1,19 +1,15 @@
 #ifndef SCALEALGORITHM_H
 #define SCALEALGORITHM_H
 
-#include "algorithm.h"
+
 #include "../entities/image.h"
 
-class ScaleAlgorithm : public Algorithm
+class ScaleAlgorithm
 {
 public:
-    ScaleAlgorithm(Image image, double scale);
+    ScaleAlgorithm();
 
-    virtual Image execute() override;
-
-private:
-    Image _image;
-    double _scale;
+    Image execute(const Image& image, double scale);
 };
 
 #endif // SCALEALGORITHM_H

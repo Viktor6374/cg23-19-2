@@ -24,13 +24,20 @@ set(PROJECT_SOURCES
         domain/entities/pixel.cpp
         domain/entities/image.h
         domain/entities/image.cpp
-        domain/algorithms/algorithm.h
-        domain/algorithms/algorithm.cpp
         domain/algorithms/scalealgorithm.h
         domain/algorithms/scalealgorithm.cpp
 
-        presentation/imageloader.h
-        presentation/imageloader.cpp
+        infrastructure/imagerepository.h
+        infrastructure/imagerepository.cpp
+        infrastructure/loaders/imageloader.h
+        infrastructure/loaders/imageloader.cpp
+        infrastructure/savers/imagesaver.h
+        infrastructure/savers/imagesaver.cpp
+        infrastructure/factories/imageloaderfactory.h
+        infrastructure/factories/imageloaderfactory.cpp
+        infrastructure/factories/imagesaverfactory.h
+        infrastructure/factories/imagesaverfactory.cpp
+
         presentation/imageconverter.h
         presentation/imageconverter.cpp
 )
