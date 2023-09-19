@@ -21,7 +21,7 @@ Image ImageRepository::load(std::string file_path)
 
     delete loader;
 
-    return Image();
+    return image;
 }
 
 void ImageRepository::save(const Image &image, std::string file_path, std::string image_type)
