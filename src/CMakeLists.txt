@@ -15,31 +15,28 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        domain/entities/pixel.h domain/entities/pixel.cpp
+        domain/entities/image.h domain/entities/image.cpp
+        domain/algorithms/scalealgorithm.h domain/algorithms/scalealgorithm.cpp
+
+        infrastructure/imagerepository.h infrastructure/imagerepository.cpp
+
+        infrastructure/loaders/imageloader.h infrastructure/loaders/imageloader.cpp
+        infrastructure/loaders/p5imageloader.h infrastructure/loaders/p5imageloader.cpp
+        infrastructure/loaders/p6imageloader.h infrastructure/loaders/p6imageloader.cpp
+
+        infrastructure/savers/imagesaver.h infrastructure/savers/imagesaver.cpp
+        infrastructure/savers/p5imagesaver.h infrastructure/savers/p5imagesaver.cpp
+        infrastructure/savers/p6imagesaver.h infrastructure/savers/p6imagesaver.cpp
+
+        infrastructure/factories/imageloaderfactory.h infrastructure/factories/imageloaderfactory.cpp
+        infrastructure/factories/imagesaverfactory.h infrastructure/factories/imagesaverfactory.cpp
+
+        presentation/imageconverter.h presentation/imageconverter.cpp
+
+        mainwindow.cpp mainwindow.h mainwindow.ui
+
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-
-        domain/entities/pixel.h
-        domain/entities/pixel.cpp
-        domain/entities/image.h
-        domain/entities/image.cpp
-        domain/algorithms/scalealgorithm.h
-        domain/algorithms/scalealgorithm.cpp
-
-        infrastructure/imagerepository.h
-        infrastructure/imagerepository.cpp
-        infrastructure/loaders/imageloader.h
-        infrastructure/loaders/imageloader.cpp
-        infrastructure/savers/imagesaver.h
-        infrastructure/savers/imagesaver.cpp
-        infrastructure/factories/imageloaderfactory.h
-        infrastructure/factories/imageloaderfactory.cpp
-        infrastructure/factories/imagesaverfactory.h
-        infrastructure/factories/imagesaverfactory.cpp
-
-        presentation/imageconverter.h
-        presentation/imageconverter.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
