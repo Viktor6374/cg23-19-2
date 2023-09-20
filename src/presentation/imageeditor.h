@@ -16,6 +16,9 @@ public:
     ImageEditor(QWidget *parent = nullptr);
     ~ImageEditor();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::ImageEditor *_ui;
 
