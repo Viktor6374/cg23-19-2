@@ -1,8 +1,7 @@
 #ifndef IMAGECONVERTER_H
 #define IMAGECONVERTER_H
 
-
-#include "../domain/entities/image.h"
+#include "../../domain/entities/image.h"
 #include <QImage>
 
 class ImageConverter

@@ -17,7 +17,10 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 set(PROJECT_SOURCES
         domain/entities/pixel.h domain/entities/pixel.cpp
         domain/entities/image.h domain/entities/image.cpp
-        domain/algorithms/scalealgorithm.h domain/algorithms/scalealgorithm.cpp
+
+        domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
+
+        application/imageservice.h application/imageservice.cpp
 
         infrastructure/imagerepository.h infrastructure/imagerepository.cpp
 
@@ -32,9 +35,9 @@ set(PROJECT_SOURCES
         infrastructure/factories/imageloaderfactory.h infrastructure/factories/imageloaderfactory.cpp
         infrastructure/factories/imagesaverfactory.h infrastructure/factories/imagesaverfactory.cpp
 
-        presentation/imageconverter.h presentation/imageconverter.cpp
+        presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
-        mainwindow.cpp mainwindow.h mainwindow.ui
+        presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
 
         main.cpp
 )

@@ -1,7 +1,6 @@
 #ifndef IMAGESAVERFACTORY_H
 #define IMAGESAVERFACTORY_H
 
-
 #include "../savers/imagesaver.h"
 #include <string>
 

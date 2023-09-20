@@ -2,10 +2,16 @@
 
 #include <fstream>
 
-ImageRepository::ImageRepository(ImageLoaderFactory image_loader_factory, ImageSaverFactory image_saver_factory)
+ImageRepository::ImageRepository()
 {
-    _image_loader_factory = image_loader_factory;
-    _image_saver_factory = image_saver_factory;
+    _image_loader_factory = new ImageLoaderFactory();
+    _image_saver_factory = new ImageSaverFactory();
+}
+
+ImageRepository::~ImageRepository()
+{
+    delete _image_loader_factory;
+    delete _image_saver_factory;
 }
 
 Image ImageRepository::load(std::string file_path)
@@ -15,7 +21,7 @@ Image ImageRepository::load(std::string file_path)
     std::string image_type;
     in >> image_type;
 
-    ImageLoader* loader = _image_loader_factory.create(image_type);
+    ImageLoader* loader = _image_loader_factory->create(image_type);
 
     Image image = loader->load(in);
 
@@ -28,7 +34,7 @@ void ImageRepository::save(const Image &image, std::string file_path, std::strin
 {
     std::ofstream out(file_path);
 
-    ImageSaver* saver = _image_saver_factory.create(image_type);
+    ImageSaver* saver = _image_saver_factory->create(image_type);
 
     saver->save(image, out);
 

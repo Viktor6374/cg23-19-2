@@ -1,7 +1,6 @@
 #ifndef P5IMAGELOADER_H
 #define P5IMAGELOADER_H
 
-
 #include "imageloader.h"
 
 class P5ImageLoader : public ImageLoader
