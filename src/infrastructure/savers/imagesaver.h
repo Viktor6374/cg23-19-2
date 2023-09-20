@@ -1,7 +1,6 @@
 #ifndef IMAGESAVER_H
 #define IMAGESAVER_H
 
-
 #include "../../domain/entities/image.h"
 #include <fstream>
 

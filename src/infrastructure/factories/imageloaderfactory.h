@@ -1,7 +1,6 @@
 #ifndef IMAGELOADERFACTORY_H
 #define IMAGELOADERFACTORY_H
 
-
 #include "../loaders/imageloader.h"
 #include <string>
 

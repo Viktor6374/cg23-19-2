@@ -3,13 +3,15 @@
 
 ImageEditor::ImageEditor(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::ImageEditor)
+    , _ui(new Ui::ImageEditor)
+    , _image_service(new ImageService())
 {
-    ui->setupUi(this);
+    _ui->setupUi(this);
 }
 
 ImageEditor::~ImageEditor()
 {
-    delete ui;
+    delete _image_service;
+    delete _ui;
 }
 

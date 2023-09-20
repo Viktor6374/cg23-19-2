@@ -1,7 +1,6 @@
 #ifndef IMAGEREPOSITORY_H
 #define IMAGEREPOSITORY_H
 
-
 #include "../domain/entities/image.h"
 #include "factories/imageloaderfactory.h"
 #include "factories/imagesaverfactory.h"

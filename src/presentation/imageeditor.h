@@ -1,6 +1,7 @@
 #ifndef IMAGEEDITOR_H
 #define IMAGEEDITOR_H
 
+#include "../application/imageservice.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -16,6 +17,8 @@ public:
     ~ImageEditor();
 
 private:
-    Ui::ImageEditor *ui;
+    Ui::ImageEditor *_ui;
+
+    ImageService *_image_service;
 };
 #endif // IMAGEEDITOR_H

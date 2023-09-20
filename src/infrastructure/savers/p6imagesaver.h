@@ -1,7 +1,6 @@
 #ifndef P6IMAGESAVER_H
 #define P6IMAGESAVER_H
 
-
 #include "imagesaver.h"
 
 class P6ImageSaver : public ImageSaver

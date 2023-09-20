@@ -1,7 +1,6 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 
-
 #include "../../domain/entities/image.h"
 #include <fstream>
 
