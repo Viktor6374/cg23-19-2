@@ -8,7 +8,6 @@ class ImageLoader
 {
 public:
     ImageLoader();
-
     virtual ~ImageLoader();
 
     virtual Image load(const std::ifstream& in) = 0;

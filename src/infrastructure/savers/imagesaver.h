@@ -8,7 +8,6 @@ class ImageSaver
 {
 public:
     ImageSaver();
-
     virtual ~ImageSaver();
 
     virtual void save(const Image& image, const std::ofstream& out) = 0;
