@@ -8,7 +8,7 @@ class P5ImageSaver : public ImageSaver
 public:
     P5ImageSaver();
 
-    virtual void save(Image *image, const std::ofstream &out) override;
+    virtual void save(Image *image, std::ofstream &out) override;
 };
 
 #endif // P5IMAGESAVER_H

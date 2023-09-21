@@ -10,7 +10,7 @@ public:
     ImageSaver();
     virtual ~ImageSaver();
 
-    virtual void save(Image *image, const std::ofstream& out) = 0;
+    virtual void save(Image *image, std::ofstream& out) = 0;
 };
 
 #endif // IMAGESAVER_H
