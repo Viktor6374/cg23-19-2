@@ -4,7 +4,7 @@ P6ImageLoader::P6ImageLoader()
 {
 }
 
-Image P6ImageLoader::load(const std::ifstream &in)
+Image *P6ImageLoader::load(const std::ifstream &in)
 {
-    return Image();
+    return nullptr;
 }

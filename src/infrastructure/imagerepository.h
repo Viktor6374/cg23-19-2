@@ -12,9 +12,9 @@ public:
     ImageRepository();
     ~ImageRepository();
 
-    Image load(std::string file_path);
+    Image *load(std::string file_path);
 
-    void save(const Image& image, std::string file_path, std::string image_type);
+    void save(Image *image, std::string file_path, std::string image_type);
 
 private:
     ImageLoaderFactory *_image_loader_factory;

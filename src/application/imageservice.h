@@ -11,14 +11,15 @@ public:
     ImageService();
     ~ImageService();
 
-    const Image& base_image();
+    Image *base_image();
 
     void load_image(std::string file_path);
+    void save_image(std::string file_path, std::string image_type);
 
 private:
     ImageRepository *_image_repository;
 
-    Image _base_image;
+    Image *_base_image;
 };
 
 #endif // IMAGESERVICE_H

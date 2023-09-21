@@ -4,7 +4,7 @@ P5ImageLoader::P5ImageLoader()
 {
 }
 
-Image P5ImageLoader::load(const std::ifstream &in)
+Image *P5ImageLoader::load(const std::ifstream &in)
 {
-    return Image();
+    return nullptr;
 }

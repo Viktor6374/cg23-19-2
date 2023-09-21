@@ -9,7 +9,7 @@ class ImageSaverFactory
 public:
     ImageSaverFactory();
 
-    ImageSaver* create(std::string image_type);
+    ImageSaver *create(std::string image_type);
 };
 
 #endif // IMAGESAVERFACTORY_H
