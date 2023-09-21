@@ -25,3 +25,12 @@ void ImageEditor::on_pushButton_clicked()
     _image_service->load_image(file_path);
 }
 
+
+void ImageEditor::on_pushButton_2_clicked()
+{
+    std::string file_path = _ui->lineEdit_2->text().toStdString();
+    std::string file_format = _ui->comboBox->currentText().toStdString();
+
+    _image_service->save_image(file_path, file_format);
+}
+
