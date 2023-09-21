@@ -6,5 +6,7 @@ ImageConverter::ImageConverter()
 
 QImage *ImageConverter::convert_to_QImage(Image *image)
 {
-    return nullptr;
+    uchar *data = (uchar *)image->pixels().data();
+    QImage *_qImage = new QImage(data, image->width(), image->height(), QImage::Format_RGB666);
+    return _qImage;
 }

@@ -7,24 +7,24 @@ Pixel::Pixel()
     _blue = 0;
 }
 
-Pixel::Pixel(int red, int green, int blue)
+Pixel::Pixel(unsigned char red, unsigned char green, unsigned char blue)
 {
     _red = red;
     _green = green;
     _blue = blue;
 }
 
-int Pixel::red()
+unsigned char Pixel::red() const
 {
     return _red;
 }
 
-int Pixel::green()
+unsigned char Pixel::green() const
 {
     return _green;
 }
 
-int Pixel::blue()
+unsigned char Pixel::blue() const
 {
     return _blue;
 }
