@@ -7,7 +7,7 @@ ImageLoaderFactory::ImageLoaderFactory()
 {
 }
 
-ImageLoader* ImageLoaderFactory::create(std::string image_type)
+ImageLoader *ImageLoaderFactory::create(std::string image_type)
 {
     if (image_type == "P5")
     {

@@ -9,7 +9,7 @@ class ImageLoaderFactory
 public:
     ImageLoaderFactory();
 
-    ImageLoader* create(std::string image_type);
+    ImageLoader *create(std::string image_type);
 };
 
 #endif // IMAGELOADERFACTORY_H

@@ -6,7 +6,7 @@ ImageSaverFactory::ImageSaverFactory()
 {
 }
 
-ImageSaver* ImageSaverFactory::create(std::string image_type)
+ImageSaver *ImageSaverFactory::create(std::string image_type)
 {
     if (image_type == "P5")
     {

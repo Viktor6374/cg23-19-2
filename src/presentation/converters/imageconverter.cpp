@@ -4,7 +4,7 @@ ImageConverter::ImageConverter()
 {
 }
 
-QImage ImageConverter::convert_to_QImage(const Image &image)
+QImage *ImageConverter::convert_to_QImage(Image *image)
 {
-    return QImage();
+    return nullptr;
 }

@@ -10,7 +10,7 @@ public:
     ImageLoader();
     virtual ~ImageLoader();
 
-    virtual Image load(const std::ifstream& in) = 0;
+    virtual Image *load(const std::ifstream& in) = 0;
 };
 
 #endif // IMAGELOADER_H

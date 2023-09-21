@@ -8,7 +8,7 @@ class P6ImageSaver : public ImageSaver
 public:
     P6ImageSaver();
 
-    virtual void save(const Image &image, const std::ofstream &out) override;
+    virtual void save(Image *image, const std::ofstream &out) override;
 };
 
 #endif // P6IMAGESAVER_H
