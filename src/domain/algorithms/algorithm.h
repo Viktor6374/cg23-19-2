@@ -1,7 +1,7 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
-#include "../domain/image.h"
+#include "../entities/image.h"
 
 class Algorithm
 {

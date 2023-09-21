@@ -5,7 +5,6 @@ class Pixel
 {
 public:
     Pixel();
-
     Pixel(int red, int green, int blue);
 
     int red();

@@ -3,3 +3,7 @@
 ImageLoader::ImageLoader()
 {
 }
+
+ImageLoader::~ImageLoader()
+{
+}

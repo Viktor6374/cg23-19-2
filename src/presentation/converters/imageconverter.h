@@ -1,7 +1,7 @@
 #ifndef IMAGECONVERTER_H
 #define IMAGECONVERTER_H
 
-#include "../core/domain/image.h"
+#include "../../domain/entities/image.h"
 #include <QImage>
 
 class ImageConverter
@@ -9,7 +9,7 @@ class ImageConverter
 public:
     ImageConverter();
 
-    QImage convert_to_QImage(Image image);
+    QImage convert_to_QImage(const Image& image);
 };
 
 #endif // IMAGECONVERTER_H

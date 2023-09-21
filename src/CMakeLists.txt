@@ -15,24 +15,31 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        domain/entities/pixel.h domain/entities/pixel.cpp
+        domain/entities/image.h domain/entities/image.cpp
+
+        domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
+
+        application/imageservice.h application/imageservice.cpp
+
+        infrastructure/imagerepository.h infrastructure/imagerepository.cpp
+
+        infrastructure/loaders/imageloader.h infrastructure/loaders/imageloader.cpp
+        infrastructure/loaders/p5imageloader.h infrastructure/loaders/p5imageloader.cpp
+        infrastructure/loaders/p6imageloader.h infrastructure/loaders/p6imageloader.cpp
+
+        infrastructure/savers/imagesaver.h infrastructure/savers/imagesaver.cpp
+        infrastructure/savers/p5imagesaver.h infrastructure/savers/p5imagesaver.cpp
+        infrastructure/savers/p6imagesaver.h infrastructure/savers/p6imagesaver.cpp
+
+        infrastructure/factories/imageloaderfactory.h infrastructure/factories/imageloaderfactory.cpp
+        infrastructure/factories/imagesaverfactory.h infrastructure/factories/imagesaverfactory.cpp
+
+        presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
+
+        presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
+
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-
-        core/domain/pixel.h
-        core/domain/pixel.cpp
-        core/domain/image.h
-        core/domain/image.cpp
-        core/algorithms/algorithm.h
-        core/algorithms/algorithm.cpp
-        core/algorithms/scalealgorithm.h
-        core/algorithms/scalealgorithm.cpp
-
-        client/imageloader.h
-        client/imageloader.cpp
-        client/imageconverter.h
-        client/imageconverter.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -8,14 +8,14 @@ class Image
 {
 public:
     Image();
-    Image(int width, int height, std::vector<Pixel> pixels);
+    Image(int width, int height, const std::vector<Pixel>& pixels);
 
     int width();
     int height();
 
     const std::vector<Pixel>& pixels();
 
-    Pixel pixel_at(int x, int y);
+    const Pixel& pixel_at(int x, int y);
 
 private:
     int _width;
