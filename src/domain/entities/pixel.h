@@ -5,16 +5,16 @@ class Pixel
 {
 public:
     Pixel();
-    Pixel(int red, int green, int blue);
+    Pixel(unsigned char red, unsigned char green, unsigned char blue);
 
-    int red();
-    int green();
-    int blue();
+    unsigned char red() const;
+    unsigned char green() const;
+    unsigned char blue() const;
 
 private:
-    int _red;
-    int _green;
-    int _blue;
+    unsigned char _red;
+    unsigned char _green;
+    unsigned char _blue;
 };
 
 #endif // PIXEL_H
