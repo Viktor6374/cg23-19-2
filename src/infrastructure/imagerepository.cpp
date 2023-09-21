@@ -16,7 +16,7 @@ ImageRepository::~ImageRepository()
 
 Image *ImageRepository::load(std::string file_path)
 {
-    std::ifstream in(file_path);
+    std::ifstream in(file_path, std::ios::binary);
 
     std::string image_type;
     in >> image_type;
