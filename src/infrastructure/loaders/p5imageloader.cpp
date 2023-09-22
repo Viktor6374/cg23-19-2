@@ -20,14 +20,11 @@ Image *P5ImageLoader::load(std::ifstream &in)
     std::vector<Pixel> pixels;
     char color;
 
+    in.read(&color, 1);
+
     while (in.read(&color, 1))
     {
         pixels.push_back(Pixel(color, color, color));
-    }
-
-    if (pixels.size() == width * height + 1)
-    {
-        pixels.pop_back();
     }
 
     return new Image(width, height, pixels);
