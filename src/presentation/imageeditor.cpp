@@ -27,6 +27,8 @@ void ImageEditor::update_image_view()
     QPixmap pixmap = QPixmap::fromImage(*image);
 
     _ui->label_pic->setPixmap(pixmap);
+
+    delete image;
 }
 
 void ImageEditor::on_pushButton_clicked()

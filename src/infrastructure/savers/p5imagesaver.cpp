@@ -9,7 +9,7 @@ void P5ImageSaver::save(Image *image, std::ofstream &out)
 {
     out << "P5" << std::endl;
     out << image->width() << " " << image->height() << std::endl;
-    out << 256 << std::endl;
+    out << 255 << std::endl;
 
     for (auto pixel : image->pixels())
     {
