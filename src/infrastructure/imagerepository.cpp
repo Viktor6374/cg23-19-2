@@ -16,7 +16,7 @@ ImageRepository::~ImageRepository()
 
 Image *ImageRepository::load(std::string file_path)
 {
-    std::ifstream in(file_path);
+    std::ifstream in(file_path, std::ios::binary);
 
     std::string image_type;
     in >> image_type;
@@ -32,7 +32,7 @@ Image *ImageRepository::load(std::string file_path)
 
 void ImageRepository::save(Image *image, std::string file_path, std::string image_type)
 {
-    std::ofstream out(file_path);
+    std::ofstream out(file_path, std::ios::binary);
 
     ImageSaver* saver = _image_saver_factory->create(image_type);
 

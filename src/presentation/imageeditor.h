@@ -2,6 +2,7 @@
 #define IMAGEEDITOR_H
 
 #include "../application/imageservice.h"
+#include "../presentation/converters/imageconverter.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -16,12 +17,17 @@ public:
     ImageEditor(QWidget *parent = nullptr);
     ~ImageEditor();
 
+    void update_image_view();
+
 private slots:
     void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::ImageEditor *_ui;
 
     ImageService *_image_service;
+    ImageConverter *_image_converter;
 };
 #endif // IMAGEEDITOR_H
