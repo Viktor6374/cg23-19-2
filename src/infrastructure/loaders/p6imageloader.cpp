@@ -7,23 +7,19 @@ P6ImageLoader::P6ImageLoader()
 
 Image *P6ImageLoader::load(std::ifstream &in)
 {
-    int w;
-    int h;
-    in >> w >> h;
-    int chislo;
-    in >> chislo;
-    std::vector<Pixel> vec;
-    char red;
-    char green;
-    char blue;
-    while (in.read(&blue, 1)){
-        in.read(&red, 1);
-        in.read(&green, 1);
-        Pixel point(red, green, blue);
-        vec.push_back(point);
+    int width, height;
+    in >> width >> height;
+
+    int max_color_value;
+    in >> max_color_value;
+
+    std::vector<Pixel> pixels;
+    char colors[3];
+
+    while (in.read(colors, 3))
+    {
+        pixels.push_back(Pixel(colors[0], colors[1], colors[2]));
     }
-    if (vec.size() - 1 != w * h){
-        throw std::exception();
-    }
-    return new Image(w, h, vec);
+
+    return new Image(width, height, pixels);
 }

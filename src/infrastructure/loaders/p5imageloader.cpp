@@ -11,19 +11,19 @@ P5ImageLoader::P5ImageLoader()
 
 Image *P5ImageLoader::load(std::ifstream &in)
 {
-    int w;
-    int h;
-    in >> w >> h;
-    int chislo;
-    in >> chislo;
-    std::vector<Pixel> vec;
+    int width, height;
+    in >> width >> height;
+
+    int max_color_value;
+    in >> max_color_value;
+
+    std::vector<Pixel> pixels;
     char color;
-    while (in.read(&color, 1)){
-        Pixel point(color, color, color);
-        vec.push_back(point);
+
+    while (in.read(&color, 1))
+    {
+        pixels.push_back(Pixel(color, color, color));
     }
-    if (vec.size() != w * h){
-        throw std::exception();
-    }
-    return new Image(w, h, vec);
+
+    return new Image(width, height, pixels);
 }
