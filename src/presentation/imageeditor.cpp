@@ -2,6 +2,7 @@
 #include "presentation/ui_imageeditor.h"
 #include <QPixmap>
 #include <string>
+#include <stdexcept>
 
 ImageEditor::ImageEditor(QWidget *parent)
     : QMainWindow(parent)
@@ -35,9 +36,17 @@ void ImageEditor::on_pushButton_clicked()
 {
     std::string file_path = _ui->lineEdit->text().toStdString();
 
-    _image_service->load_image(file_path);
+    try
+    {
+        _image_service->load_image(file_path);
 
-    update_image_view();
+        update_image_view();
+    }
+    catch (std::logic_error ex)
+    {
+        _ui->label_pic->setText(ex.what());
+    }
+
 }
 
 void ImageEditor::on_pushButton_2_clicked()
@@ -45,6 +54,13 @@ void ImageEditor::on_pushButton_2_clicked()
     std::string file_path = _ui->lineEdit_2->text().toStdString();
     std::string file_format = _ui->comboBox->currentText().toStdString();
 
-    _image_service->save_image(file_path, file_format);
+    try
+    {
+        _image_service->save_image(file_path, file_format);
+    }
+    catch (std::logic_error ex)
+    {
+        _ui->label_pic->setText(ex.what());
+    }
 }
 

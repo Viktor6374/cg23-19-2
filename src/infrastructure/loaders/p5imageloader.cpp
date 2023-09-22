@@ -25,5 +25,10 @@ Image *P5ImageLoader::load(std::ifstream &in)
         pixels.push_back(Pixel(color, color, color));
     }
 
+    if (pixels.size() == width * height + 1)
+    {
+        pixels.pop_back();
+    }
+
     return new Image(width, height, pixels);
 }

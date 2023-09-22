@@ -12,13 +12,13 @@ Image::Image()
 Image::Image(int width, int height, const std::vector<Pixel>& pixels)
 {
     if (width <= 0)
-        throw std::domain_error("Incorrect image width");
+        throw std::logic_error("Incorrect image width");
 
     if (height <= 0)
-        throw std::domain_error("Incorrect image height");
+        throw std::logic_error("Incorrect image height");
 
     if (pixels.size() != width * height)
-        throw std::domain_error("Incorrect image pixels count");
+        throw std::logic_error("Incorrect image pixels count");
 
     _width = width;
     _height = height;
