@@ -18,7 +18,7 @@ Image *P6ImageLoader::load(std::ifstream &in)
 
     while (in.read(colors, 3))
     {
-        pixels.push_back(Pixel(colors[0], colors[1], colors[2]));
+        pixels.push_back(Pixel(colors[1], colors[2], colors[0]));
     }
 
     return new Image(width, height, pixels);
