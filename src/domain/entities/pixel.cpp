@@ -1,30 +1,17 @@
 #include "pixel.h"
 
-Pixel::Pixel()
+template<typename TChannel>
+Pixel<TChannel>::Pixel()
 {
-    _red = 0;
-    _green = 0;
-    _blue = 0;
+    channel_1 = TChannel();
+    channel_2 = TChannel();
+    channel_3 = TChannel();
 }
 
-Pixel::Pixel(unsigned char red, unsigned char green, unsigned char blue)
+template<typename TChannel>
+Pixel<TChannel>::Pixel(TChannel channel_1, TChannel channel_2, TChannel channel_3)
 {
-    _red = red;
-    _green = green;
-    _blue = blue;
-}
-
-unsigned char Pixel::red() const
-{
-    return _red;
-}
-
-unsigned char Pixel::green() const
-{
-    return _green;
-}
-
-unsigned char Pixel::blue() const
-{
-    return _blue;
+    this->channel_1 = channel_1;
+    this->channel_2 = channel_1;
+    this->channel_3 = channel_1;
 }

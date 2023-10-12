@@ -16,9 +16,13 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         domain/entities/pixel.h domain/entities/pixel.cpp
+        domain/entities/bytepixel.h domain/entities/bytepixel.cpp
+        domain/entities/floatpixel.h domain/entities/floatpixel.cpp
         domain/entities/image.h domain/entities/image.cpp
 
-        domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
+        domain/models/colorspace.h
+
+        domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
 
         application/imageservice.h application/imageservice.cpp
 

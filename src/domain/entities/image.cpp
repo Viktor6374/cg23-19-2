@@ -1,15 +1,17 @@
 #include "image.h"
 #include <stdexcept>
 
-Image::Image()
+template<class TPixel>
+Image<TPixel>::Image()
 {
     _width = 0;
     _height = 0;
 
-    _pixels = std::vector<Pixel>();
+    _pixels = std::vector<TPixel>();
 }
 
-Image::Image(int width, int height, const std::vector<Pixel>& pixels)
+template<class TPixel>
+Image<TPixel>::Image(int width, int height, const std::vector<TPixel>& pixels)
 {
     if (width <= 0)
         throw std::logic_error("Incorrect image width");
@@ -26,22 +28,20 @@ Image::Image(int width, int height, const std::vector<Pixel>& pixels)
     _pixels = pixels;
 }
 
-int Image::width() const
+template<class TPixel>
+int Image<TPixel>::width() const
 {
     return _width;
 }
 
-int Image::height() const
+template<class TPixel>
+int Image<TPixel>::height() const
 {
     return _height;
 }
 
-const std::vector<Pixel>& Image::pixels() const
+template<class TPixel>
+std::vector<TPixel>& Image<TPixel>::pixels()
 {
     return _pixels;
-}
-
-const Pixel& Image::pixel_at(int x, int y) const
-{
-    return _pixels.at(x + y * _width);
 }
