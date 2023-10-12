@@ -9,7 +9,7 @@ class ImageConverter
 public:
     ImageConverter();
 
-    QImage *convert_to_QImage(Image *image);
+    QImage *convert_to_QImage(Image<BytePixel> *image);
 };
 
 #endif // IMAGECONVERTER_H

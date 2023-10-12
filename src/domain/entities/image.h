@@ -4,24 +4,23 @@
 #include "pixel.h"
 #include <vector>
 
+template<class TPixel>
 class Image
 {
 public:
     Image();
-    Image(int width, int height, const std::vector<Pixel>& pixels);
+    Image(int width, int height, const std::vector<TPixel>& pixels);
 
     int width() const;
     int height() const;
 
-    const std::vector<Pixel>& pixels() const;
-
-    const Pixel& pixel_at(int x, int y) const;
+    std::vector<TPixel>& pixels();
 
 private:
     int _width;
     int _height;
 
-    std::vector<Pixel> _pixels;
+    std::vector<TPixel> _pixels;
 };
 
 #endif // IMAGE_H
