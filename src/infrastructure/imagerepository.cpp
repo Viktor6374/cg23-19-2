@@ -14,7 +14,7 @@ ImageRepository::~ImageRepository()
     delete _image_saver_factory;
 }
 
-Image *ImageRepository::load(std::string file_path)
+Image<BytePixel> *ImageRepository::load(std::string file_path)
 {
     std::ifstream in(file_path, std::ios::binary);
 
@@ -23,14 +23,14 @@ Image *ImageRepository::load(std::string file_path)
 
     ImageLoader* loader = _image_loader_factory->create(image_type);
 
-    Image *image = loader->load(in);
+    Image<BytePixel> *image = loader->load(in);
 
     delete loader;
 
     return image;
 }
 
-void ImageRepository::save(Image *image, std::string file_path, std::string image_type)
+void ImageRepository::save(Image<BytePixel> *image, std::string file_path, std::string image_type)
 {
     std::ofstream out(file_path, std::ios::binary);
 

@@ -9,7 +9,7 @@ P5ImageLoader::P5ImageLoader()
 {
 }
 
-Image *P5ImageLoader::load(std::ifstream &in)
+Image<BytePixel> *P5ImageLoader::load(std::ifstream &in)
 {
     int width, height;
     in >> width >> height;

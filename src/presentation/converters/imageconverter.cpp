@@ -1,10 +1,11 @@
 #include "imageconverter.h"
+#include "../../domain/entities/floatpixel.h"
 
 ImageConverter::ImageConverter()
 {
 }
 
-QImage *ImageConverter::convert_to_QImage(Image *image)
+QImage *ImageConverter::convert_to_QImage(Image<FloatPixel> *image)
 {
     uchar *data = (uchar *)image->pixels().data();
 
