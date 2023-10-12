@@ -5,7 +5,7 @@ P6ImageLoader::P6ImageLoader()
 {
 }
 
-Image *P6ImageLoader::load(std::ifstream &in)
+Image<BytePixel> *P6ImageLoader::load(std::ifstream &in)
 {
     int width, height;
     in >> width >> height;

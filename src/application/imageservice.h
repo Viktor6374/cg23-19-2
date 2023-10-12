@@ -12,7 +12,7 @@ public:
     ImageService();
     ~ImageService();
 
-    Image<BytePixel> *base_image();
+    Image<FloatPixel> *base_image();
 
     void load_image(std::string file_path);
     void save_image(std::string file_path, std::string image_type);
