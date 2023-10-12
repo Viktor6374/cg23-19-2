@@ -42,6 +42,7 @@ set(PROJECT_SOURCES
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
+        domain/converters/bytefloatconverter.h domain/converters/bytefloatconverter.cpp
 
         main.cpp
 )

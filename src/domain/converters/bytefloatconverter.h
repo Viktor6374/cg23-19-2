@@ -11,7 +11,8 @@ class ByteFloatConverter
 public:
     ByteFloatConverter();
 
-
+    Image<FloatPixel> *convert(Image<BytePixel> *image);
+    Image<BytePixel> *convert(Image<FloatPixel> *image);
 };
 
 #endif // BYTEFLOATCONVERTER_H
