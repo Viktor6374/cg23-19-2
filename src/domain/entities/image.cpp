@@ -36,12 +36,12 @@ int Image::height() const
     return _height;
 }
 
-const std::vector<Pixel>& Image::pixels() const
+std::vector<Pixel>& Image::pixels()
 {
     return _pixels;
 }
 
-const Pixel& Image::pixel_at(int x, int y) const
+const std::vector<Pixel>& Image::pixels() const
 {
-    return _pixels.at(x + y * _width);
+    return _pixels;
 }

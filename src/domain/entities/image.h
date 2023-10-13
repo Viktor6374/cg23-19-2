@@ -13,9 +13,8 @@ public:
     int width() const;
     int height() const;
 
+    std::vector<Pixel>& pixels();
     const std::vector<Pixel>& pixels() const;
-
-    const Pixel& pixel_at(int x, int y) const;
 
 private:
     int _width;

@@ -5,16 +5,9 @@ class Pixel
 {
 public:
     Pixel();
-    Pixel(unsigned char red, unsigned char green, unsigned char blue);
+    Pixel(float channel_1, float channel_2, float channel_3);
 
-    unsigned char red() const;
-    unsigned char green() const;
-    unsigned char blue() const;
-
-private:
-    unsigned char _red;
-    unsigned char _green;
-    unsigned char _blue;
+    float channels[3];
 };
 
 #endif // PIXEL_H
