@@ -1,9 +1,9 @@
 #include "fromrgb_torgb_converter.h"
 
-FromRgb_ToRgbConverter::FromRgb_ToRgbConverter()
+FromRGB_ToRGB_Converter::FromRGB_ToRGB_Converter()
 {
 }
 
-void FromRgb_ToRgbConverter::convert(Image *image)
+void FromRGB_ToRGB_Converter::convert(Image *image)
 {
 }

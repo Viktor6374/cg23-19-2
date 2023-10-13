@@ -10,7 +10,7 @@ ToRGB_Converter *ToRGB_ConverterFactory::create(ColorSpace to)
 {
     if (to == RGB)
     {
-        return new FromRgb_ToRgbConverter();
+        return new FromRGB_ToRGB_Converter();
     }
     else
     {

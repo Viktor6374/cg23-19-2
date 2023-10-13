@@ -23,10 +23,22 @@ set(PROJECT_SOURCES
         domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
 
         domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
-        domain/converters/from_rgb/torgb_fromrgb_converter.h domain/converters/from_rgb/torgb_fromrgb_converter.cpp
+        domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
+        domain/converters/to_rgb/fromhsl_torgb_converter.h domain/converters/to_rgb/fromhsl_torgb_converter.cpp
+        domain/converters/to_rgb/fromhsv_torgb_converter.h domain/converters/to_rgb/fromhsv_torgb_converter.cpp
+        domain/converters/to_rgb/fromycbcr609_torgb_converter.h domain/converters/to_rgb/fromycbcr609_torgb_converter.cpp
+        domain/converters/to_rgb/fromycbcr709_torgb_converter.h domain/converters/to_rgb/fromycbcr709_torgb_converter.cpp
+        domain/converters/to_rgb/fromycocg_torgb_converter.h domain/converters/to_rgb/fromycocg_torgb_converter.cpp
+        domain/converters/to_rgb/fromcmy_torgb_converter.h domain/converters/to_rgb/fromcmy_torgb_converter.cpp
 
         domain/converters/from_rgb/fromrgb_converter.h domain/converters/from_rgb/fromrgb_converter.cpp
-        domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
+        domain/converters/from_rgb/torgb_fromrgb_converter.h domain/converters/from_rgb/torgb_fromrgb_converter.cpp
+        domain/converters/from_rgb/tohsl_fromrgb_converter.h domain/converters/from_rgb/tohsl_fromrgb_converter.cpp
+        domain/converters/from_rgb/tohsv_fromrgb_converter.h domain/converters/from_rgb/tohsv_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycbcr609_fromrgb_converter.h domain/converters/from_rgb/toycbcr609_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycbcr709_fromrgb_converter.h domain/converters/from_rgb/toycbcr709_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycocg_fromrgb_converter.h domain/converters/from_rgb/toycocg_fromrgb_converter.cpp
+        domain/converters/from_rgb/tocmy_fromrgb_converter.h domain/converters/from_rgb/tocmy_fromrgb_converter.cpp
 
         domain/converters/factories/torgb_converterfactory.h domain/converters/factories/torgb_converterfactory.cpp
         domain/converters/factories/fromrgb_converterfactory.h domain/converters/factories/fromrgb_converterfactory.cpp
