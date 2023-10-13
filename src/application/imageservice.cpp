@@ -1,4 +1,6 @@
 #include "imageservice.h"
+#include "../domain/entities/bytepixel.h"
+#include "../domain/entities/floatpixel.h"
 
 ImageService::ImageService()
 {
@@ -14,7 +16,7 @@ ImageService::~ImageService()
     delete _image_repository;
 }
 
-Image *ImageService::base_image()
+Image<FloatPixel> *ImageService::base_image()
 {
     return _base_image;
 }

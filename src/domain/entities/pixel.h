@@ -1,20 +1,16 @@
 #ifndef PIXEL_H
 #define PIXEL_H
 
+template<typename TChannel>
 class Pixel
 {
 public:
     Pixel();
-    Pixel(unsigned char red, unsigned char green, unsigned char blue);
+    Pixel(TChannel channel_1, TChannel channel_2, TChannel channel_3);
 
-    unsigned char red() const;
-    unsigned char green() const;
-    unsigned char blue() const;
-
-private:
-    unsigned char _red;
-    unsigned char _green;
-    unsigned char _blue;
+    TChannel channel_1;
+    TChannel channel_2;
+    TChannel channel_3;
 };
 
 #endif // PIXEL_H

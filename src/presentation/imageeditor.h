@@ -17,14 +17,16 @@ public:
     ImageEditor(QWidget *parent = nullptr);
     ~ImageEditor();
 
-    void update_image_view();
-
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
 private:
+    void update_image_view();
+
+    void resizeEvent(QResizeEvent *event);
+
     Ui::ImageEditor *_ui;
 
     ImageService *_image_service;

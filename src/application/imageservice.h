@@ -2,6 +2,7 @@
 #define IMAGESERVICE_H
 
 #include "../domain/entities/image.h"
+#include "../domain/entities/floatpixel.h"
 #include "../infrastructure/imagerepository.h"
 #include <string>
 
@@ -11,7 +12,7 @@ public:
     ImageService();
     ~ImageService();
 
-    Image *base_image();
+    Image<FloatPixel> *base_image();
 
     void load_image(std::string file_path);
     void save_image(std::string file_path, std::string image_type);
@@ -19,7 +20,7 @@ public:
 private:
     ImageRepository *_image_repository;
 
-    Image *_base_image;
+    Image<FloatPixel> *_base_image;
 };
 
 #endif // IMAGESERVICE_H

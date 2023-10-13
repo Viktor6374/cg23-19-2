@@ -16,9 +16,13 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         domain/entities/pixel.h domain/entities/pixel.cpp
+        domain/entities/bytepixel.h domain/entities/bytepixel.cpp
+        domain/entities/floatpixel.h domain/entities/floatpixel.cpp
         domain/entities/image.h domain/entities/image.cpp
 
-        domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
+        domain/models/colorspace.h
+
+        domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
 
         application/imageservice.h application/imageservice.cpp
 
@@ -38,6 +42,7 @@ set(PROJECT_SOURCES
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
+        domain/converters/bytefloatconverter.h domain/converters/bytefloatconverter.cpp
 
         main.cpp
 )
@@ -46,6 +51,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ImageEditor
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        domain/converters/bytefloatconverter.h domain/converters/bytefloatconverter.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ImageEditor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

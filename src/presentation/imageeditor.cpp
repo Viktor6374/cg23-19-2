@@ -23,9 +23,15 @@ ImageEditor::~ImageEditor()
 
 void ImageEditor::update_image_view()
 {
+    if (_image_service->base_image() == nullptr)
+        return;
+
     QImage *image = _image_converter->convert_to_QImage(_image_service->base_image());
 
-    QPixmap pixmap = QPixmap::fromImage(*image);
+    double scale = (double)_ui->label_pic->height() / image->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*image)
+            .scaled(image->width() * scale, image->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
 
@@ -64,3 +70,7 @@ void ImageEditor::on_pushButton_2_clicked()
     }
 }
 
+void ImageEditor::resizeEvent(QResizeEvent *event)
+{
+    update_image_view();
+}

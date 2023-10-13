@@ -5,7 +5,7 @@ P6ImageLoader::P6ImageLoader()
 {
 }
 
-Image *P6ImageLoader::load(std::ifstream &in)
+Image<BytePixel> *P6ImageLoader::load(std::ifstream &in)
 {
     int width, height;
     in >> width >> height;
@@ -13,14 +13,14 @@ Image *P6ImageLoader::load(std::ifstream &in)
     int max_color_value;
     in >> max_color_value;
 
-    std::vector<Pixel> pixels;
+    std::vector<BytePixel> pixels;
     char colors[3];
 
     in.read(colors, 1);
 
     while (in.read(colors, 3))
     {
-        pixels.push_back(Pixel(colors[0], colors[1], colors[2]));
+        pixels.push_back(BytePixel(colors[0], colors[1], colors[2]));
     }
 
     return new Image(width, height, pixels);
