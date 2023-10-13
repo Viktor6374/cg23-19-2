@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
         domain/entities/pixel.h domain/entities/pixel.cpp
         domain/entities/image.h domain/entities/image.cpp
 
+        domain/models/colorspace.h
+
         domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
 
         application/imageservice.h application/imageservice.cpp
