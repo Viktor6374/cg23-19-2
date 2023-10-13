@@ -32,6 +32,9 @@ void ImageService::load_image(std::string file_path)
 
 void ImageService::save_image(std::string file_path, std::string image_type)
 {
+    if (_current_image == nullptr)
+        return;
+
     _image_repository->save(_current_image, file_path, image_type);
 }
 
