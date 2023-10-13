@@ -20,7 +20,16 @@ set(PROJECT_SOURCES
 
         domain/models/colorspace.h
 
-        domain/algorithms/algorithm.h domain/algorithms/algorithm.cpp
+        domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
+
+        domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
+        domain/converters/from_rgb/torgb_fromrgb_converter.h domain/converters/from_rgb/torgb_fromrgb_converter.cpp
+
+        domain/converters/from_rgb/fromrgb_converter.h domain/converters/from_rgb/fromrgb_converter.cpp
+        domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
+
+        domain/converters/factories/torgb_converterfactory.h domain/converters/factories/torgb_converterfactory.cpp
+        domain/converters/factories/fromrgb_converterfactory.h domain/converters/factories/fromrgb_converterfactory.cpp
 
         application/imageservice.h application/imageservice.cpp
 
