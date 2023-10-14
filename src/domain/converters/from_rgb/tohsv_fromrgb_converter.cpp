@@ -17,7 +17,7 @@ void convert_channels_toHSV_fromRGB(float *channels)
 
     channels[2] = Cmax;
 
-    if (Cmax == 0.0)
+    if (Cmax == 0)
     {
         channels[1] = 0;
     }
@@ -26,19 +26,19 @@ void convert_channels_toHSV_fromRGB(float *channels)
         channels[1] = delta / Cmax;
     }
 
-    if (delta == 0.0)
+    if (delta == 0)
     {
         channels[0] = 0;
     }
-    else if (delta == R)
+    else if (Cmax == R)
     {
         channels[0] = 60 / 360.0 * (fmodf((G - B) / delta, 6));
     }
-    else if (delta == G)
+    else if (Cmax == G)
     {
         channels[0] = 60 / 360.0 * ((B - R) / delta + 2);
     }
-    else if (delta == B)
+    else if (Cmax == B)
     {
         channels[0] = 60 / 360.0 * ((R - G) / delta + 4);
     }

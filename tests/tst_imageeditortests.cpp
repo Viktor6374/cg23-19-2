@@ -38,8 +38,10 @@ public:
     ~ImageEditorTests();
 
 private slots:
-    void convert_test();
-
+    void convert_HSLtoRGB_test();
+    void convert_RGBtoHSL_test();
+    void convert_HSVtoRGB_test();
+    void convert_RGBtoHSV_test();
 };
 
 ImageEditorTests::ImageEditorTests()
@@ -50,18 +52,60 @@ ImageEditorTests::~ImageEditorTests()
 {
 }
 
-void ImageEditorTests::convert_test()
+void ImageEditorTests::convert_HSLtoRGB_test()
 {
-    Pixel pixel = Pixel(0, 0, 0);
+    Pixel pixel = Pixel(0, 1, 0.5);
     Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
 
     auto converter = ColorSpaceConverter();
 
     converter.convert(&image, HSL, RGB);
 
-    assert(image.pixels()[0].channels[0] == 0);
+    assert(image.pixels()[0].channels[0] == 1);
     assert(image.pixels()[0].channels[1] == 0);
     assert(image.pixels()[0].channels[2] == 0);
+}
+
+void ImageEditorTests::convert_RGBtoHSL_test()
+{
+    Pixel pixel = Pixel(1, 0, 0);
+    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
+
+    auto converter = ColorSpaceConverter();
+
+    converter.convert(&image, RGB, HSL);
+
+    assert(image.pixels()[0].channels[0] == 0);
+    assert(image.pixels()[0].channels[1] == 1);
+    assert(image.pixels()[0].channels[2] == 0.5);
+}
+
+void ImageEditorTests::convert_HSVtoRGB_test()
+{
+    Pixel pixel = Pixel(0, 1, 1);
+    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
+
+    auto converter = ColorSpaceConverter();
+
+    converter.convert(&image, HSV, RGB);
+
+    assert(image.pixels()[0].channels[0] == 1);
+    assert(image.pixels()[0].channels[1] == 0);
+    assert(image.pixels()[0].channels[2] == 0);
+}
+
+void ImageEditorTests::convert_RGBtoHSV_test()
+{
+    Pixel pixel = Pixel(1, 0, 0);
+    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
+
+    auto converter = ColorSpaceConverter();
+
+    converter.convert(&image, RGB, HSV);
+
+    assert(image.pixels()[0].channels[0] == 0);
+    assert(image.pixels()[0].channels[1] == 1);
+    assert(image.pixels()[0].channels[2] == 1);
 }
 
 QTEST_APPLESS_MAIN(ImageEditorTests)

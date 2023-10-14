@@ -17,7 +17,7 @@ void convert_channels_toHSL_fromRGB(float *channels)
 
     channels[2] = (Cmax + Cmin) / 2.0;
 
-    if (delta == 0.0)
+    if (delta == 0)
     {
         channels[1] = 0;
     }
@@ -26,19 +26,19 @@ void convert_channels_toHSL_fromRGB(float *channels)
         channels[1] = delta / (1 - fabsf(2 * channels[2] - 1));
     }
 
-    if (delta == 0.0)
+    if (delta == 0)
     {
         channels[0] = 0;
     }
-    else if (delta == R)
+    else if (Cmax == R)
     {
         channels[0] = 60 / 360.0 * (fmodf((G - B) / delta, 6));
     }
-    else if (delta == G)
+    else if (Cmax == G)
     {
         channels[0] = 60 / 360.0 * ((B - R) / delta + 2);
     }
-    else if (delta == B)
+    else if (Cmax == B)
     {
         channels[0] = 60 / 360.0 * ((R - G) / delta + 4);
     }
