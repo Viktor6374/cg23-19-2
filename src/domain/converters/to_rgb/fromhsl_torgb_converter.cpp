@@ -11,8 +11,8 @@ void convert_channels_fromHSL_toRGB(float *channels)
     float S = channels[1];
     float L = channels[2];
 
-    float C = (1 - std::abs(2 * L - 1)) * S;
-    float X = C * (1 - std::abs(fmodf(H / 60 * 360.0, 2) - 1));
+    float C = (1 - fabsf(2 * L - 1)) * S;
+    float X = C * (1 - fabsf(fmodf(H / 60 * 360.0, 2) - 1));
     float m = L - C / 2;
 
     if (H < 60 / 360.0)

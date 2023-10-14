@@ -12,7 +12,7 @@ void convert_channels_fromHSV_toRGB(float *channels)
     float V = channels[2];
 
     float C = V * S;
-    float X = C * (1 - std::abs(fmodf(H / 60 * 360.0, 2) - 1));
+    float X = C * (1 - fabsf(fmodf(H / 60 * 360.0, 2) - 1));
     float m = V - C;
 
     if (H < 60 / 360.0)
