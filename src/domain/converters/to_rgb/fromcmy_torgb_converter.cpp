@@ -5,9 +5,9 @@ FromCMY_ToRGB_Converter::FromCMY_ToRGB_Converter()
 }
 
 void FromCMY_ToRGB_Pixel_Converter(float* channels) {
-    channels[0] = 255 - channels[0];
-    channels[1] = 255 - channels[1];
-    channels[2] = 255 - channels[2];
+    channels[0] = 1 - channels[0];
+    channels[1] = 1 - channels[1];
+    channels[2] = 1 - channels[2];
 }
 
 void FromCMY_ToRGB_Converter::convert(Image *image)
