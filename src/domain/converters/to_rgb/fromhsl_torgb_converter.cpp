@@ -5,7 +5,7 @@ FromHSL_ToRGB_Converter::FromHSL_ToRGB_Converter()
 {
 }
 
-void convert_channels(float *channels)
+void convert_channels_fromHSL_toRGB(float *channels)
 {
     float H = channels[0];
     float S = channels[1];
@@ -56,5 +56,5 @@ void convert_channels(float *channels)
 void FromHSL_ToRGB_Converter::convert(Image *image)
 {
     for (auto &pixel : image->pixels())
-        convert_channels(pixel.channels);
+        convert_channels_fromHSL_toRGB(pixel.channels);
 }
