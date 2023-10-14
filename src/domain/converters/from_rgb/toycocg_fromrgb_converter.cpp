@@ -10,8 +10,8 @@ void ToYCoCg_FromRGB_Pixel_Converter(float* channels) {
     float B = channels[2];
 
     channels[0] = R / 4 + G / 2 + B / 4;
-    channels[1] = R / 2 - B / 2;
-    channels[2] = -R / 4 + G / 2 - B / 4;
+    channels[1] = R / 2 - B / 2 + 0.5;
+    channels[2] = -R / 4 + G / 2 - B / 4 + 0.5;
 }
 
 void ToYCoCg_FromRGB_Converter::convert(Image *image)

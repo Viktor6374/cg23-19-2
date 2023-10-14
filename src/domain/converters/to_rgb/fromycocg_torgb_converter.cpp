@@ -10,8 +10,8 @@ void FromYCoCg_ToRGB_Pixel_Converter(float* channels) {
     float Cg = channels[2];
 
     channels[0] = Y + Co - Cg;
-    channels[1] = Y + Cg;
-    channels[2] = Y - Co - Cg;
+    channels[1] = Y + Cg - 0.5;
+    channels[2] = Y - Co - Cg + 1;
 }
 
 void FromYCoCg_ToRGB_Converter::convert(Image *image)
