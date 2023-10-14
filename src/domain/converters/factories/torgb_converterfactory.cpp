@@ -2,7 +2,7 @@
 #include "../to_rgb/fromrgb_torgb_converter.h"
 #include "../to_rgb/fromhsl_torgb_converter.h"
 #include "../to_rgb/fromhsv_torgb_converter.h"
-#include "../to_rgb/fromycbcr609_torgb_converter.h"
+#include "../to_rgb/fromycbcr601_torgb_converter.h"
 #include "../to_rgb/fromycbcr709_torgb_converter.h"
 #include "../to_rgb/fromycocg_torgb_converter.h"
 #include "../to_rgb/fromcmy_torgb_converter.h"
