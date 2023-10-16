@@ -22,12 +22,12 @@
      <widget class="QComboBox" name="comboBox">
       <item>
        <property name="text">
-        <string>P5</string>
+        <string>P6</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>P6</string>
+        <string>P5</string>
        </property>
       </item>
      </widget>
