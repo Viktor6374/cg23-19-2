@@ -45,8 +45,8 @@ void ImageService::save_image(std::string file_path, std::string image_type)
 
 void ImageService::change_color_space(ColorSpace color_space)
 {
-    _current_color_space = color_space;
-
     if (_current_image != nullptr)
         _color_space_converter->convert(_current_image, _current_color_space, color_space);
+
+    _current_color_space = color_space;
 }
