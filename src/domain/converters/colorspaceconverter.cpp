@@ -15,12 +15,12 @@ ColorSpaceConverter::~ColorSpaceConverter()
 
 void ColorSpaceConverter::convert(Image *image, ColorSpace from, ColorSpace to)
 {
-    ToRGB_Converter *to_tgb_converter = _to_rgb_converter_factory->create(from);
-    FromRGB_Converter *from_tgb_converter = _from_rgb_converter_factory->create(to);
+    ToRGB_Converter *to_rgb_converter = _to_rgb_converter_factory->create(from);
+    FromRGB_Converter *from_rgb_converter = _from_rgb_converter_factory->create(to);
 
-    to_tgb_converter->convert(image);
-    from_tgb_converter->convert(image);
+    to_rgb_converter->convert(image);
+    from_rgb_converter->convert(image);
 
-    delete to_tgb_converter;
-    delete from_tgb_converter;
+    delete to_rgb_converter;
+    delete from_rgb_converter;
 }

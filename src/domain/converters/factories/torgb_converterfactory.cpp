@@ -19,7 +19,7 @@ ToRGB_Converter *ToRGB_ConverterFactory::create(ColorSpace from)
     case RGB : return new FromRGB_ToRGB_Converter();
     case HSL : return new FromHSL_ToRGB_Converter();
     case HSV : return new FromHSV_ToRGB_Converter();
-    case YCbCr609 : return new FromYCbCr601_ToRGB_Converter();
+    case YCbCr601 : return new FromYCbCr601_ToRGB_Converter();
     case YCbCr709 : return new FromYCbCr709_ToRGB_Converter();
     case YCoCg : return new FromYCoCg_ToRGB_Converter();
     case CMY : return new FromCMY_ToRGB_Converter();

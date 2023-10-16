@@ -24,7 +24,7 @@ Image *P5ImageLoader::load(std::ifstream &in)
 
     while (in.read(&color, 1))
     {
-        pixels.push_back(Pixel(color, color, color));
+        pixels.push_back(Pixel(color / 255.0, color / 255.0, color / 255.0));
     }
 
     return new Image(width, height, pixels);
