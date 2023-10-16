@@ -46,6 +46,6 @@ void convert_channels_toHSV_fromRGB(float *channels)
 
 void ToHSV_FromRGB_Converter::convert(Image *image)
 {
-    for (auto pixel : image->pixels())
+    for (auto &pixel : image->pixels())
         convert_channels_toHSV_fromRGB(pixel.channels);
 }

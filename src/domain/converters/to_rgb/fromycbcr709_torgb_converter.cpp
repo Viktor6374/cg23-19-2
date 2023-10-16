@@ -16,7 +16,7 @@ void FromYCbCr709_ToRGB_Pixel_Converter(float* channels) {
 
 void FromYCbCr709_ToRGB_Converter::convert(Image *image)
 {
-    for (auto pixel : image->pixels()) {
+    for (auto &pixel : image->pixels()) {
         FromYCbCr709_ToRGB_Pixel_Converter(pixel.channels);
     }
 }
