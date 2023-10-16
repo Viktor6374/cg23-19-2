@@ -14,7 +14,7 @@
 #include "../src/domain/converters/to_rgb/fromrgb_torgb_converter.cpp"
 #include "../src/domain/converters/to_rgb/fromhsl_torgb_converter.cpp"
 #include "../src/domain/converters/to_rgb/fromhsv_torgb_converter.cpp"
-#include "../src/domain/converters/to_rgb/fromycbcr609_torgb_converter.cpp"
+#include "../src/domain/converters/to_rgb/fromycbcr601_torgb_converter.cpp"
 #include "../src/domain/converters/to_rgb/fromycbcr709_torgb_converter.cpp"
 #include "../src/domain/converters/to_rgb/fromycocg_torgb_converter.cpp"
 #include "../src/domain/converters/to_rgb/fromcmy_torgb_converter.cpp"
@@ -23,7 +23,7 @@
 #include "../src/domain/converters/from_rgb/torgb_fromrgb_converter.cpp"
 #include "../src/domain/converters/from_rgb/tohsl_fromrgb_converter.cpp"
 #include "../src/domain/converters/from_rgb/tohsv_fromrgb_converter.cpp"
-#include "../src/domain/converters/from_rgb/toycbcr609_fromrgb_converter.cpp"
+#include "../src/domain/converters/from_rgb/toycbcr601_fromrgb_converter.cpp"
 #include "../src/domain/converters/from_rgb/toycbcr709_fromrgb_converter.cpp"
 #include "../src/domain/converters/from_rgb/toycocg_fromrgb_converter.cpp"
 #include "../src/domain/converters/from_rgb/tocmy_fromrgb_converter.cpp"
@@ -38,10 +38,7 @@ public:
     ~ImageEditorTests();
 
 private slots:
-    void convert_HSLtoRGB_test();
-    void convert_RGBtoHSL_test();
-    void convert_HSVtoRGB_test();
-    void convert_RGBtoHSV_test();
+    void convert_XXXtoYYYtoXXX_test();
 };
 
 ImageEditorTests::ImageEditorTests()
@@ -52,60 +49,25 @@ ImageEditorTests::~ImageEditorTests()
 {
 }
 
-void ImageEditorTests::convert_HSLtoRGB_test()
+void ImageEditorTests::convert_XXXtoYYYtoXXX_test()
 {
-    Pixel pixel = Pixel(0, 1, 0.5);
-    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
-
     auto converter = ColorSpaceConverter();
 
-    converter.convert(&image, HSL, RGB);
+    for (int XXX = RGB; XXX <= CMY; ++XXX)
+    {
+        for  (int YYY = RGB; YYY <= CMY; ++YYY)
+        {
+            Pixel pixel = Pixel(0.5, 0.5, 0.5);
+            Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
 
-    assert(image.pixels()[0].channels[0] == 1);
-    assert(image.pixels()[0].channels[1] == 0);
-    assert(image.pixels()[0].channels[2] == 0);
-}
+            converter.convert(&image, (ColorSpace)XXX, (ColorSpace)YYY);
+            converter.convert(&image, (ColorSpace)YYY, (ColorSpace)XXX);
 
-void ImageEditorTests::convert_RGBtoHSL_test()
-{
-    Pixel pixel = Pixel(1, 0, 0);
-    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
-
-    auto converter = ColorSpaceConverter();
-
-    converter.convert(&image, RGB, HSL);
-
-    assert(image.pixels()[0].channels[0] == 0);
-    assert(image.pixels()[0].channels[1] == 1);
-    assert(image.pixels()[0].channels[2] == 0.5);
-}
-
-void ImageEditorTests::convert_HSVtoRGB_test()
-{
-    Pixel pixel = Pixel(0, 1, 1);
-    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
-
-    auto converter = ColorSpaceConverter();
-
-    converter.convert(&image, HSV, RGB);
-
-    assert(image.pixels()[0].channels[0] == 1);
-    assert(image.pixels()[0].channels[1] == 0);
-    assert(image.pixels()[0].channels[2] == 0);
-}
-
-void ImageEditorTests::convert_RGBtoHSV_test()
-{
-    Pixel pixel = Pixel(1, 0, 0);
-    Image image = Image(1, 1, std::vector<Pixel>(1, pixel));
-
-    auto converter = ColorSpaceConverter();
-
-    converter.convert(&image, RGB, HSV);
-
-    assert(image.pixels()[0].channels[0] == 0);
-    assert(image.pixels()[0].channels[1] == 1);
-    assert(image.pixels()[0].channels[2] == 1);
+            QCOMPARE(image.pixels()[0].channels[0], pixel.channels[0]);
+            QCOMPARE(image.pixels()[0].channels[1], pixel.channels[1]);
+            QCOMPARE(image.pixels()[0].channels[2], pixel.channels[2]);
+        }
+    }
 }
 
 QTEST_APPLESS_MAIN(ImageEditorTests)
