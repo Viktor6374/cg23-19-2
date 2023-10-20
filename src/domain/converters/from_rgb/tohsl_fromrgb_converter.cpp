@@ -42,8 +42,12 @@ void convert_channels_toHSL_fromRGB(float *channels)
     {
         channels[0] = 60 / 360.0 * ((R - G) / delta + 4);
     }
-
-    channels[0] = fmodf(channels[0] + 1, 1);
+    if (channels[0] > 1){
+        channels[0] = 1;
+    }
+    else if (channels[0] < 0) {
+        channels[0] = 0;
+    }
 }
 
 void ToHSL_FromRGB_Converter::convert(Image *image)
