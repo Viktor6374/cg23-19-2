@@ -11,6 +11,10 @@ ImageEditor::ImageEditor(QWidget *parent)
     _image_converter = new ImageConverter();
     _image_service = new ImageService();
 
+    _channel_masks[0] = 1;
+    _channel_masks[1] = 1;
+    _channel_masks[2] = 1;
+
     _ui->setupUi(this);
 }
 
@@ -26,21 +30,35 @@ void ImageEditor::update_image_view()
     if (_image_service->current_image() == nullptr)
         return;
 
-    ColorSpace current_color_space = _image_service->current_color_cpace();
-    _image_service->change_color_space(RGB);
+    std::vector<Pixel> pixels;
 
-    QImage *image = _image_converter->convert_to_QImage(_image_service->current_image());
+    for (auto pixel : _image_service->current_image()->pixels())
+    {
+         for (int i = 0; i < 3; ++i)
+             if (_channel_masks[i] == 0)
+                 pixel.channels[i] = 0;
 
-    double scale = (double)_ui->label_pic->height() / image->height();
+         pixels.push_back(pixel);
+    }
 
-    QPixmap pixmap = QPixmap::fromImage(*image)
-            .scaled(image->width() * scale, image->height() * scale);
+    Image image = Image(
+                _image_service->current_image()->width(),
+                _image_service->current_image()->height(),
+                pixels);
+
+    auto converter = ColorSpaceConverter();
+    converter.convert(&image, _image_service->current_color_cpace(), RGB);
+
+    QImage *qImage = _image_converter->convert_to_QImage(&image);
+
+    double scale = (double)_ui->label_pic->height() / qImage->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage)
+            .scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
 
-    _image_service->change_color_space(current_color_space);
-
-    delete image;
+    delete qImage;
 }
 
 void ImageEditor::on_pushButton_clicked()
@@ -123,5 +141,38 @@ void ImageEditor::on_comboBox_2_currentTextChanged(const QString &arg1)
     {
         _ui->label_pic->setText(ex.what());
     }
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_comboBox_3_currentTextChanged(const QString &arg1)
+{
+    if (arg1 == "All")
+    {
+        _channel_masks[0] = 1;
+        _channel_masks[1] = 1;
+        _channel_masks[2] = 1;
+    }
+    else if (arg1 == "First")
+    {
+        _channel_masks[0] = 1;
+        _channel_masks[1] = 0;
+        _channel_masks[2] = 0;
+    }
+    else if (arg1 == "Second")
+    {
+        _channel_masks[0] = 0;
+        _channel_masks[1] = 1;
+        _channel_masks[2] = 0;
+    }
+    else if (arg1 == "Third")
+    {
+        _channel_masks[0] = 0;
+        _channel_masks[1] = 0;
+        _channel_masks[2] = 1;
+    }
+
+    update_image_view();
 }
 
