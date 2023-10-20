@@ -32,7 +32,7 @@ void convert_channels_toHSV_fromRGB(float *channels)
     }
     else if (Cmax == R)
     {
-        channels[0] = 60 / 360.0 * (fmodf((G - B) / delta, 6));
+        channels[0] = 60 / 360.0 * ((G - B) / delta);
     }
     else if (Cmax == G)
     {
@@ -42,6 +42,8 @@ void convert_channels_toHSV_fromRGB(float *channels)
     {
         channels[0] = 60 / 360.0 * ((R - G) / delta + 4);
     }
+
+    channels[0] = fmodf(channels[0] + 1, 1);
 }
 
 void ToHSV_FromRGB_Converter::convert(Image *image)
