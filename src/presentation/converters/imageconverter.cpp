@@ -12,7 +12,9 @@ QImage *ImageConverter::convert_to_QImage(Image *image)
     {
         for (int j = 0; j < 3; ++j)
         {
-            data[3 * i + j] = (uchar)(image->pixels()[i].channels[j] * 255);
+            unsigned char channel = (unsigned char)(image->pixels()[i].channels[j] * 255);
+
+            data[3 * i + j] = channel;
         }
     }
 

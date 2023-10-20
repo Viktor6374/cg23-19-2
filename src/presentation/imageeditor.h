@@ -24,6 +24,8 @@ private slots:
 
     void on_comboBox_2_currentTextChanged(const QString &arg1);
 
+    void on_comboBox_3_currentTextChanged(const QString &arg1);
+
 private:
     void update_image_view();
 
@@ -33,5 +35,7 @@ private:
 
     ImageService *_image_service;
     ImageConverter *_image_converter;
+
+    unsigned char _channel_masks[3];
 };
 #endif // IMAGEEDITOR_H
