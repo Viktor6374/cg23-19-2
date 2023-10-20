@@ -23,10 +23,13 @@ ImageEditor::~ImageEditor()
 
 void ImageEditor::update_image_view()
 {
-    if (_image_service->base_image() == nullptr)
+    if (_image_service->current_image() == nullptr)
         return;
 
-    QImage *image = _image_converter->convert_to_QImage(_image_service->base_image());
+    ColorSpace current_color_space = _image_service->current_color_cpace();
+    _image_service->change_color_space(RGB);
+
+    QImage *image = _image_converter->convert_to_QImage(_image_service->current_image());
 
     double scale = (double)_ui->label_pic->height() / image->height();
 
@@ -34,6 +37,8 @@ void ImageEditor::update_image_view()
             .scaled(image->width() * scale, image->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
+
+    _image_service->change_color_space(current_color_space);
 
     delete image;
 }
@@ -52,7 +57,6 @@ void ImageEditor::on_pushButton_clicked()
     {
         _ui->label_pic->setText(ex.what());
     }
-
 }
 
 void ImageEditor::on_pushButton_2_clicked()
@@ -74,3 +78,50 @@ void ImageEditor::resizeEvent(QResizeEvent *event)
 {
     update_image_view();
 }
+
+ColorSpace get_color_space(const QString &arg1)
+{
+    if (arg1 == "RGB")
+    {
+        return RGB;
+    }
+    else if (arg1 == "HSL")
+    {
+        return HSL;
+    }
+    else if (arg1 == "HSV")
+    {
+        return HSV;
+    }
+    else if (arg1 == "YCbCr.601")
+    {
+        return YCbCr601;
+    }
+    else if (arg1 == "YCbCr.709")
+    {
+        return YCbCr709;
+    }
+    else if (arg1 == "YCoCg")
+    {
+        return YCoCg;
+    }
+    else if (arg1 == "CMY")
+    {
+        return CMY;
+    }
+
+    throw std::logic_error("unsupported color space");
+}
+
+void ImageEditor::on_comboBox_2_currentTextChanged(const QString &arg1)
+{
+    try
+    {
+        _image_service->change_color_space(get_color_space(arg1));
+    }
+    catch (std::logic_error ex)
+    {
+        _ui->label_pic->setText(ex.what());
+    }
+}
+

@@ -12,7 +12,7 @@ void FromCMY_ToRGB_Pixel_Converter(float* channels) {
 
 void FromCMY_ToRGB_Converter::convert(Image *image)
 {
-    for (auto pixel : image->pixels()) {
+    for (auto &pixel : image->pixels()) {
         FromCMY_ToRGB_Pixel_Converter(pixel.channels);
     }
 }

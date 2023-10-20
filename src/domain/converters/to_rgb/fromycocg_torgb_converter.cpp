@@ -16,7 +16,7 @@ void FromYCoCg_ToRGB_Pixel_Converter(float* channels) {
 
 void FromYCoCg_ToRGB_Converter::convert(Image *image)
 {
-    for (auto pixel : image->pixels()) {
+    for (auto &pixel : image->pixels()) {
         FromYCoCg_ToRGB_Pixel_Converter(pixel.channels);
     }
 }

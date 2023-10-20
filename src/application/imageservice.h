@@ -13,12 +13,13 @@ public:
     ImageService();
     ~ImageService();
 
-    Image *base_image();
+    ColorSpace current_color_cpace();
+    Image *current_image();
 
     void load_image(std::string file_path);
     void save_image(std::string file_path, std::string image_type);
 
-    void convert_image_to_color_space(std::string color_space);
+    void change_color_space(ColorSpace color_space);
 
 private:
     ImageRepository *_image_repository;

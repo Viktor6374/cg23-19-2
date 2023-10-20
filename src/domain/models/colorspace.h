@@ -7,7 +7,7 @@ enum ColorSpace
     RGB,
     HSL,
     HSV,
-    YCbCr609,
+    YCbCr601,
     YCbCr709,
     YCoCg,
     CMY
