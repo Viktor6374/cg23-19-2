@@ -14,7 +14,7 @@ void P6ImageSaver::save(Image *image, std::ofstream &out)
     {
         for (int i = 0; i < 3; ++i)
         {
-            out << (char)(pixel.channels[i] * 255);
+            out << (unsigned char)(pixel.channels[i] * 255);
         }
     }
 }

@@ -18,11 +18,11 @@ Image *P5ImageLoader::load(std::ifstream &in)
     in >> max_color_value;
 
     std::vector<Pixel> pixels;
-    char color;
+    unsigned char color;
 
-    in.read(&color, 1);
+    in.read((char *)&color, 1);
 
-    while (in.read(&color, 1))
+    while (in.read((char *)&color, 1))
     {
         pixels.push_back(Pixel(color / 255.0, color / 255.0, color / 255.0));
     }
