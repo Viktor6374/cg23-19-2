@@ -16,13 +16,32 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         domain/entities/pixel.h domain/entities/pixel.cpp
-        domain/entities/bytepixel.h domain/entities/bytepixel.cpp
-        domain/entities/floatpixel.h domain/entities/floatpixel.cpp
         domain/entities/image.h domain/entities/image.cpp
 
         domain/models/colorspace.h
 
         domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
+
+        domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
+        domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
+        domain/converters/to_rgb/fromhsl_torgb_converter.h domain/converters/to_rgb/fromhsl_torgb_converter.cpp
+        domain/converters/to_rgb/fromhsv_torgb_converter.h domain/converters/to_rgb/fromhsv_torgb_converter.cpp
+        domain/converters/to_rgb/fromycbcr601_torgb_converter.h domain/converters/to_rgb/fromycbcr601_torgb_converter.cpp
+        domain/converters/to_rgb/fromycbcr709_torgb_converter.h domain/converters/to_rgb/fromycbcr709_torgb_converter.cpp
+        domain/converters/to_rgb/fromycocg_torgb_converter.h domain/converters/to_rgb/fromycocg_torgb_converter.cpp
+        domain/converters/to_rgb/fromcmy_torgb_converter.h domain/converters/to_rgb/fromcmy_torgb_converter.cpp
+
+        domain/converters/from_rgb/fromrgb_converter.h domain/converters/from_rgb/fromrgb_converter.cpp
+        domain/converters/from_rgb/torgb_fromrgb_converter.h domain/converters/from_rgb/torgb_fromrgb_converter.cpp
+        domain/converters/from_rgb/tohsl_fromrgb_converter.h domain/converters/from_rgb/tohsl_fromrgb_converter.cpp
+        domain/converters/from_rgb/tohsv_fromrgb_converter.h domain/converters/from_rgb/tohsv_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycbcr601_fromrgb_converter.h domain/converters/from_rgb/toycbcr601_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycbcr709_fromrgb_converter.h domain/converters/from_rgb/toycbcr709_fromrgb_converter.cpp
+        domain/converters/from_rgb/toycocg_fromrgb_converter.h domain/converters/from_rgb/toycocg_fromrgb_converter.cpp
+        domain/converters/from_rgb/tocmy_fromrgb_converter.h domain/converters/from_rgb/tocmy_fromrgb_converter.cpp
+
+        domain/converters/factories/torgb_converterfactory.h domain/converters/factories/torgb_converterfactory.cpp
+        domain/converters/factories/fromrgb_converterfactory.h domain/converters/factories/fromrgb_converterfactory.cpp
 
         application/imageservice.h application/imageservice.cpp
 
@@ -42,7 +61,6 @@ set(PROJECT_SOURCES
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
-        domain/converters/bytefloatconverter.h domain/converters/bytefloatconverter.cpp
 
         main.cpp
 )
@@ -51,7 +69,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ImageEditor
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        domain/converters/bytefloatconverter.h domain/converters/bytefloatconverter.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ImageEditor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

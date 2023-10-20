@@ -19,6 +19,6 @@ ImageSaver *ImageSaverFactory::create(std::string image_type)
     }
     else
     {
-        throw std::logic_error("Unsupported file type");
+        throw std::logic_error("Unsupported or non-existent file");
     }
 }

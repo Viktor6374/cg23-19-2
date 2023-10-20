@@ -11,6 +11,10 @@ ImageEditor::ImageEditor(QWidget *parent)
     _image_converter = new ImageConverter();
     _image_service = new ImageService();
 
+    _channel_masks[0] = 1;
+    _channel_masks[1] = 1;
+    _channel_masks[2] = 1;
+
     _ui->setupUi(this);
 }
 
@@ -23,19 +27,38 @@ ImageEditor::~ImageEditor()
 
 void ImageEditor::update_image_view()
 {
-    if (_image_service->base_image() == nullptr)
+    if (_image_service->current_image() == nullptr)
         return;
 
-    QImage *image = _image_converter->convert_to_QImage(_image_service->base_image());
+    std::vector<Pixel> pixels;
 
-    double scale = (double)_ui->label_pic->height() / image->height();
+    for (auto pixel : _image_service->current_image()->pixels())
+    {
+         for (int i = 0; i < 3; ++i)
+             if (_channel_masks[i] == 0)
+                 pixel.channels[i] = 0;
 
-    QPixmap pixmap = QPixmap::fromImage(*image)
-            .scaled(image->width() * scale, image->height() * scale);
+         pixels.push_back(pixel);
+    }
+
+    Image image = Image(
+                _image_service->current_image()->width(),
+                _image_service->current_image()->height(),
+                pixels);
+
+    auto converter = ColorSpaceConverter();
+    converter.convert(&image, _image_service->current_color_cpace(), RGB);
+
+    QImage *qImage = _image_converter->convert_to_QImage(&image);
+
+    double scale = (double)_ui->label_pic->height() / qImage->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage)
+            .scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
 
-    delete image;
+    delete qImage;
 }
 
 void ImageEditor::on_pushButton_clicked()
@@ -52,7 +75,6 @@ void ImageEditor::on_pushButton_clicked()
     {
         _ui->label_pic->setText(ex.what());
     }
-
 }
 
 void ImageEditor::on_pushButton_2_clicked()
@@ -74,3 +96,83 @@ void ImageEditor::resizeEvent(QResizeEvent *event)
 {
     update_image_view();
 }
+
+ColorSpace get_color_space(const QString &arg1)
+{
+    if (arg1 == "RGB")
+    {
+        return RGB;
+    }
+    else if (arg1 == "HSL")
+    {
+        return HSL;
+    }
+    else if (arg1 == "HSV")
+    {
+        return HSV;
+    }
+    else if (arg1 == "YCbCr.601")
+    {
+        return YCbCr601;
+    }
+    else if (arg1 == "YCbCr.709")
+    {
+        return YCbCr709;
+    }
+    else if (arg1 == "YCoCg")
+    {
+        return YCoCg;
+    }
+    else if (arg1 == "CMY")
+    {
+        return CMY;
+    }
+
+    throw std::logic_error("unsupported color space");
+}
+
+void ImageEditor::on_comboBox_2_currentTextChanged(const QString &arg1)
+{
+    try
+    {
+        _image_service->change_color_space(get_color_space(arg1));
+    }
+    catch (std::logic_error ex)
+    {
+        _ui->label_pic->setText(ex.what());
+    }
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_comboBox_3_currentTextChanged(const QString &arg1)
+{
+    if (arg1 == "All")
+    {
+        _channel_masks[0] = 1;
+        _channel_masks[1] = 1;
+        _channel_masks[2] = 1;
+    }
+    else if (arg1 == "First")
+    {
+        _channel_masks[0] = 1;
+        _channel_masks[1] = 0;
+        _channel_masks[2] = 0;
+    }
+    else if (arg1 == "Second")
+    {
+        _channel_masks[0] = 0;
+        _channel_masks[1] = 1;
+        _channel_masks[2] = 0;
+    }
+    else if (arg1 == "Third")
+    {
+        _channel_masks[0] = 0;
+        _channel_masks[1] = 0;
+        _channel_masks[2] = 1;
+    }
+
+    update_image_view();
+}
+

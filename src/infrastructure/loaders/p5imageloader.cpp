@@ -9,7 +9,7 @@ P5ImageLoader::P5ImageLoader()
 {
 }
 
-Image<BytePixel> *P5ImageLoader::load(std::ifstream &in)
+Image *P5ImageLoader::load(std::ifstream &in)
 {
     int width, height;
     in >> width >> height;
@@ -17,14 +17,14 @@ Image<BytePixel> *P5ImageLoader::load(std::ifstream &in)
     int max_color_value;
     in >> max_color_value;
 
-    std::vector<BytePixel> pixels;
-    char color;
+    std::vector<Pixel> pixels;
+    unsigned char color;
 
-    in.read(&color, 1);
+    in.read((char *)&color, 1);
 
-    while (in.read(&color, 1))
+    while (in.read((char *)&color, 1))
     {
-        pixels.push_back(BytePixel(color, color, color));
+        pixels.push_back(Pixel(color / 255.0, color / 255.0, color / 255.0));
     }
 
     return new Image(width, height, pixels);

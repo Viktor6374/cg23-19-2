@@ -13,6 +13,6 @@ void P5ImageSaver::save(Image<BytePixel> *image, std::ofstream &out)
 
     for (auto pixel : image->pixels())
     {
-        out << pixel.red();
+        out << (unsigned char)(pixel.channels[0] * 255);
     }
 }

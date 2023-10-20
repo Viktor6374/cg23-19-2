@@ -1,16 +1,13 @@
 #ifndef PIXEL_H
 #define PIXEL_H
 
-template<typename TChannel>
 class Pixel
 {
 public:
     Pixel();
-    Pixel(TChannel channel_1, TChannel channel_2, TChannel channel_3);
+    Pixel(float channel_1, float channel_2, float channel_3);
 
-    TChannel channel_1;
-    TChannel channel_2;
-    TChannel channel_3;
+    float channels[3];
 };
 
 #endif // PIXEL_H

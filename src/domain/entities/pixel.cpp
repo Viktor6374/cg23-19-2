@@ -1,17 +1,16 @@
 #include "pixel.h"
 
-template<typename TChannel>
-Pixel<TChannel>::Pixel()
+Pixel::Pixel()
 {
-    channel_1 = TChannel();
-    channel_2 = TChannel();
-    channel_3 = TChannel();
+    for (int i = 0; i < 3; ++i)
+    {
+        this->channels[i] = 0;
+    }
 }
 
-template<typename TChannel>
-Pixel<TChannel>::Pixel(TChannel channel_1, TChannel channel_2, TChannel channel_3)
+Pixel::Pixel(float channel_1, float channel_2, float channel_3)
 {
-    this->channel_1 = channel_1;
-    this->channel_2 = channel_1;
-    this->channel_3 = channel_1;
+    this->channels[0] = channel_1;
+    this->channels[1] = channel_2;
+    this->channels[2] = channel_3;
 }

@@ -12,8 +12,9 @@ void P6ImageSaver::save(Image<BytePixel> *image, std::ofstream &out)
 
     for (auto pixel : image->pixels())
     {
-        out << pixel.red();
-        out << pixel.green();
-        out << pixel.blue();
+        for (int i = 0; i < 3; ++i)
+        {
+            out << (unsigned char)(pixel.channels[i] * 255);
+        }
     }
 }
