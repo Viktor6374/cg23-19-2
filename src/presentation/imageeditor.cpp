@@ -1,5 +1,6 @@
 #include "imageeditor.h"
 #include "presentation/ui_imageeditor.h"
+#include "../domain/algorithms/converttogammaalgorithm.h"
 #include <QPixmap>
 #include <string>
 #include <stdexcept>
@@ -49,6 +50,9 @@ void ImageEditor::update_image_view()
     auto converter = ColorSpaceConverter();
     converter.convert(&image, _image_service->current_color_cpace(), RGB);
 
+    auto algorithm = ConvertToGammaAlgorithm();
+    algorithm.execute(&image, _image_service->current_gamma(), 2.2);
+
     QImage *qImage = _image_converter->convert_to_QImage(&image);
 
     double scale = (double)_ui->label_pic->height() / qImage->height();
@@ -68,6 +72,8 @@ void ImageEditor::on_pushButton_clicked()
     try
     {
         _image_service->load_image(file_path);
+
+        _ui->lineEdit_gamma->setText("2.2");
 
         update_image_view();
     }
@@ -172,6 +178,26 @@ void ImageEditor::on_comboBox_3_currentTextChanged(const QString &arg1)
         _channel_masks[1] = 0;
         _channel_masks[2] = 1;
     }
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_pushButton_assign_gamma_clicked()
+{
+    float new_gamma = _ui->lineEdit_gamma->text().toDouble();
+
+    _image_service->assing_gamma(new_gamma);
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_pushButton_convert_gamma_clicked()
+{
+    float new_gamma = _ui->lineEdit_gamma->text().toDouble();
+
+    _image_service->convert_to_gamma(new_gamma);
 
     update_image_view();
 }
