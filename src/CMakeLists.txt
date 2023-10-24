@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
 
         domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
 
+        domain/algorithms/converttogammaalgorithm.h domain/algorithms/converttogammaalgorithm.cpp
+
         domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
         domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
         domain/converters/to_rgb/fromhsl_torgb_converter.h domain/converters/to_rgb/fromhsl_torgb_converter.cpp
