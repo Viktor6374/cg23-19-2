@@ -26,6 +26,10 @@ private slots:
 
     void on_comboBox_3_currentTextChanged(const QString &arg1);
 
+    void on_pushButton_assign_gamma_clicked();
+
+    void on_pushButton_convert_gamma_clicked();
+
 private:
     void update_image_view();
 
