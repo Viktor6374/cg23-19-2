@@ -1,5 +1,6 @@
 #include "imageservice.h"
 #include "../domain/algorithms/converttogammaalgorithm.h"
+#include "../domain/algorithms/drawlinealgorithm.h"
 
 ImageService::ImageService()
 {
@@ -41,6 +42,9 @@ void ImageService::load_image(std::string file_path)
 
     _current_image = _image_repository->load(file_path);
     _current_gamma = 2.2;
+
+    auto alg = DrawLineAlgorithm();
+    alg.execute(_current_image, Point(0, 0, 0), Point(333, 333, 0), 1, 1);
 }
 
 void ImageService::save_image(std::string file_path, std::string image_type)

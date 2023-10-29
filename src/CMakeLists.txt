@@ -19,10 +19,12 @@ set(PROJECT_SOURCES
         domain/entities/image.h domain/entities/image.cpp
 
         domain/models/colorspace.h
+        domain/models/point.h domain/models/point.cpp
 
         domain/converters/colorspaceconverter.h domain/converters/colorspaceconverter.cpp
 
         domain/algorithms/converttogammaalgorithm.h domain/algorithms/converttogammaalgorithm.cpp
+        domain/algorithms/drawlinealgorithm.h domain/algorithms/drawlinealgorithm.cpp
 
         domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
         domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
