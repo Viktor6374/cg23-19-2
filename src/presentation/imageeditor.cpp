@@ -16,6 +16,8 @@ ImageEditor::ImageEditor(QWidget *parent)
     _channel_masks[1] = 1;
     _channel_masks[2] = 1;
 
+    _line_drawing_options = LineDrawingOptions();
+
     _ui->setupUi(this);
 }
 
@@ -202,3 +204,77 @@ void ImageEditor::on_pushButton_convert_gamma_clicked()
     update_image_view();
 }
 
+
+void ImageEditor::on_lineEdit_7_textChanged(const QString &arg1)
+{
+    float c = arg1.toDouble() / 255;
+
+    _line_drawing_options.color.channels[0] = c;
+}
+
+
+void ImageEditor::on_lineEdit_6_textChanged(const QString &arg1)
+{
+    float c = arg1.toDouble() / 255;
+
+    _line_drawing_options.color.channels[1] = c;
+}
+
+
+void ImageEditor::on_lineEdit_3_textChanged(const QString &arg1)
+{
+    float c = arg1.toDouble() / 255;
+
+    _line_drawing_options.color.channels[2] = c;
+}
+
+
+void ImageEditor::on_lineEdit_4_textChanged(const QString &arg1)
+{
+    float t = arg1.toDouble() / 100;
+
+    _line_drawing_options.trans = t;
+}
+
+
+void ImageEditor::on_lineEdit_5_textChanged(const QString &arg1)
+{
+    float w = arg1.toDouble();
+
+    _line_drawing_options.width = w;
+}
+
+void ImageEditor::mousePressEvent(QMouseEvent *event)
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    QPoint cursorPos = QCursor::pos();
+    QPoint windowPos = QMainWindow::pos();
+    QPoint labelPos = _ui->label_pic->pos();
+
+    Point *point = new Point(
+                1.0 * (cursorPos.x() - windowPos.x() - labelPos.x()) / _ui->label_pic->width() * _image_service->current_image()->width(),
+                1.0 * (cursorPos.y() - windowPos.y() - labelPos.y() - 45) / _ui->label_pic->height() * _image_service->current_image()->height());
+
+    if (_line_drawing_options.point1 == nullptr)
+    {
+        _line_drawing_options.point1 = point;
+    }
+    else
+    {
+        _image_service->draw_line(
+                    *_line_drawing_options.point1,
+                    *point,
+                    _line_drawing_options.color,
+                    _line_drawing_options.width,
+                    _line_drawing_options.trans);
+
+        update_image_view();
+
+        delete _line_drawing_options.point1;
+        delete point;
+
+        _line_drawing_options.point1 = nullptr;
+    }
+}

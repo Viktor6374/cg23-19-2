@@ -81,8 +81,8 @@ void ImageService::assing_gamma(float gamma)
     _current_gamma = gamma;
 }
 
-void ImageService::draw_line(Point point1, Point point2, float width, float trans)
+void ImageService::draw_line(Point point1, Point point2, Pixel color, float width, float trans)
 {
     auto alg = DrawLineAlgorithm();
-    alg.execute(_current_image, point1, point2, width, trans);
+    alg.execute(_current_image, point1, point2, color, width, trans);
 }

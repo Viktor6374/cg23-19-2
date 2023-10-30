@@ -62,6 +62,8 @@ set(PROJECT_SOURCES
         infrastructure/factories/imageloaderfactory.h infrastructure/factories/imageloaderfactory.cpp
         infrastructure/factories/imagesaverfactory.h infrastructure/factories/imagesaverfactory.cpp
 
+        presentation/models/linedrawingoptions.h presentation/models/linedrawingoptions.cpp
+
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui

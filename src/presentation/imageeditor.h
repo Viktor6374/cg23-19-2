@@ -2,7 +2,8 @@
 #define IMAGEEDITOR_H
 
 #include "../application/imageservice.h"
-#include "../presentation/converters/imageconverter.h"
+#include "converters/imageconverter.h"
+#include "models/linedrawingoptions.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -30,10 +31,21 @@ private slots:
 
     void on_pushButton_convert_gamma_clicked();
 
+    void on_lineEdit_7_textChanged(const QString &arg1);
+
+    void on_lineEdit_6_textChanged(const QString &arg1);
+
+    void on_lineEdit_3_textChanged(const QString &arg1);
+
+    void on_lineEdit_4_textChanged(const QString &arg1);
+
+    void on_lineEdit_5_textChanged(const QString &arg1);
+
 private:
     void update_image_view();
 
     void resizeEvent(QResizeEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
     Ui::ImageEditor *_ui;
 
@@ -41,5 +53,7 @@ private:
     ImageConverter *_image_converter;
 
     unsigned char _channel_masks[3];
+
+    LineDrawingOptions _line_drawing_options;
 };
 #endif // IMAGEEDITOR_H

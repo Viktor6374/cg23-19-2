@@ -23,7 +23,7 @@ public:
 
     void change_color_space(ColorSpace color_space);
 
-    void draw_line(Point point1, Point point2, float didth, float trans);
+    void draw_line(Point point1, Point point2, Pixel color, float didth, float trans);
 
     void convert_to_gamma(float gamma);
     void assing_gamma(float gamma);
