@@ -100,6 +100,6 @@ std::vector<Point> drawLine(int x0, int y0, int x1, int y1) {
 void DrawLineAlgorithm::execute(Image *image, Point point1, Point point2, Pixel color, float width, float trans)
 {
     for (const auto &point : drawLine(point1.x, point1.y, point2.x, point2.y)){
-        image->pixels()[image->width()*point.y + point.x] = Pixel(0, 0, 0);
+        image->pixels()[image->width()*point.y + point.x] = color;
     }
 }
