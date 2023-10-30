@@ -5,9 +5,8 @@ Point::Point()
 
 }
 
-Point::Point(int x, int y, float trans)
+Point::Point(float x, float y)
 {
     this->x = x;
     this->y = y;
-    this->trans = trans;
 }

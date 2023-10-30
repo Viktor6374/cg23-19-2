@@ -9,7 +9,7 @@ class DrawLineAlgorithm
 public:
     DrawLineAlgorithm();
 
-    void execute(Image *image, Point point1, Point point2, int width, float trans);
+    void execute(Image *image, Point point1, Point point2, float width, float trans);
 };
 
 #endif // DRAWLINEALGORITHM_H
