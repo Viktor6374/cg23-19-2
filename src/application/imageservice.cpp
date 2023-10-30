@@ -1,5 +1,6 @@
 #include "imageservice.h"
 #include "../domain/algorithms/converttogammaalgorithm.h"
+#include "../domain/algorithms/drawlinealgorithm.h"
 
 ImageService::ImageService()
 {
@@ -78,4 +79,10 @@ void ImageService::convert_to_gamma(float gamma)
 void ImageService::assing_gamma(float gamma)
 {
     _current_gamma = gamma;
+}
+
+void ImageService::draw_line(Point point1, Point point2, Pixel color, float width, float trans)
+{
+    auto alg = DrawLineAlgorithm();
+    alg.execute(_current_image, point1, point2, color, width, trans);
 }
