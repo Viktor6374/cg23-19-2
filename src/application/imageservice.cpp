@@ -42,9 +42,6 @@ void ImageService::load_image(std::string file_path)
 
     _current_image = _image_repository->load(file_path);
     _current_gamma = 2.2;
-
-    auto alg = DrawLineAlgorithm();
-    alg.execute(_current_image, Point(0, 0), Point(333, 333), 1, 1);
 }
 
 void ImageService::save_image(std::string file_path, std::string image_type)
@@ -82,4 +79,10 @@ void ImageService::convert_to_gamma(float gamma)
 void ImageService::assing_gamma(float gamma)
 {
     _current_gamma = gamma;
+}
+
+void ImageService::draw_line(Point point1, Point point2, float width, float trans)
+{
+    auto alg = DrawLineAlgorithm();
+    alg.execute(_current_image, point1, point2, width, trans);
 }
