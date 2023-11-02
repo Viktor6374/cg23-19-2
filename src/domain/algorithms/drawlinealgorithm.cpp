@@ -8,7 +8,7 @@ DrawLineAlgorithm::DrawLineAlgorithm()
 
 
 Point plot(int x, int y, float c) {
-    return Point(x, y);
+    return Point(x, y, c);
 }
 
 int ipart(float x) {
@@ -100,6 +100,10 @@ std::vector<Point> drawLine(int x0, int y0, int x1, int y1) {
 void DrawLineAlgorithm::execute(Image *image, Point point1, Point point2, Pixel color, float width, float trans)
 {
     for (const auto &point : drawLine(point1.x, point1.y, point2.x, point2.y)){
-        image->pixels()[image->width()*point.y + point.x] = color;
+        Pixel current_pixel = image->pixels()[image->width()*point.y + point.x];
+        Pixel new_color = Pixel(color.channels[0] * point.trans + current_pixel.channels[0] * (1 - point.trans),
+                                color.channels[1] * point.trans + current_pixel.channels[1] * (1 - point.trans),
+                                color.channels[2] * point.trans + current_pixel.channels[2] * (1 - point.trans));
+        image->pixels()[image->width()*point.y + point.x] = new_color;
     }
 }

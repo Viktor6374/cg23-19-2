@@ -255,7 +255,8 @@ void ImageEditor::mousePressEvent(QMouseEvent *event)
 
     Point *point = new Point(
                 1.0 * (cursorPos.x() - windowPos.x() - labelPos.x()) / _ui->label_pic->width() * _image_service->current_image()->width(),
-                1.0 * (cursorPos.y() - windowPos.y() - labelPos.y() - 45) / _ui->label_pic->height() * _image_service->current_image()->height());
+                1.0 * (cursorPos.y() - windowPos.y() - labelPos.y() - 45) / _ui->label_pic->height() * _image_service->current_image()->height(),
+                1.0);
 
     if (_line_drawing_options.point1 == nullptr)
     {
