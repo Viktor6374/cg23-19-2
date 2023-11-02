@@ -116,9 +116,9 @@ void DrawLineAlgorithm::execute(Image *image, Point point1, Point point2, Pixel 
 {
     for (const auto &point : drawLine(point1.x, point1.y, point2.x, point2.y, width)){
         Pixel current_pixel = image->pixels()[image->width()*point.y + point.x];
-        Pixel new_color = Pixel(color.channels[0] * point.trans + current_pixel.channels[0] * (1 - point.trans),
-                                color.channels[1] * point.trans + current_pixel.channels[1] * (1 - point.trans),
-                                color.channels[2] * point.trans + current_pixel.channels[2] * (1 - point.trans));
+        Pixel new_color = Pixel(color.channels[0] * point.trans * trans + current_pixel.channels[0] * (1 - point.trans * trans),
+                                color.channels[1] * point.trans * trans + current_pixel.channels[1] * (1 - point.trans * trans),
+                                color.channels[2] * point.trans * trans + current_pixel.channels[2] * (1 - point.trans * trans));
         image->pixels()[image->width()*point.y + point.x] = new_color;
     }
 }
