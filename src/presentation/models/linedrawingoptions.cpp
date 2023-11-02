@@ -6,6 +6,6 @@ LineDrawingOptions::LineDrawingOptions()
 
     color = Pixel(0, 0, 0);
 
-    width = 1;
+    width = 5;
     trans = 1;
 }
