@@ -231,7 +231,7 @@ void ImageEditor::on_lineEdit_3_textChanged(const QString &arg1)
 
 void ImageEditor::on_lineEdit_4_textChanged(const QString &arg1)
 {
-    float t = arg1.toDouble() / 100;
+    float t = arg1.toDouble();
 
     _line_drawing_options.trans = t;
 }
