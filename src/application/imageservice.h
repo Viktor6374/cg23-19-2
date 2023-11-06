@@ -5,6 +5,7 @@
 #include "../infrastructure/imagerepository.h"
 #include "../domain/converters/colorspaceconverter.h"
 #include "../domain/models/colorspace.h"
+#include "../domain/models/point.h"
 #include <string>
 
 class ImageService
@@ -21,6 +22,8 @@ public:
     void save_image(std::string file_path, std::string image_type);
 
     void change_color_space(ColorSpace color_space);
+
+    void draw_line(Point point1, Point point2, Pixel color, float didth, float trans);
 
     void convert_to_gamma(float gamma);
     void assing_gamma(float gamma);
