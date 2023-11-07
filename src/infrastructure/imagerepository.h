@@ -14,7 +14,7 @@ public:
 
     Image *load(std::string file_path);
 
-    void save(Image *image, std::string file_path, std::string image_type);
+    void save(Image *image, std::string file_path, std::string image_type, std::string dithering_type, int bytes_count);
 
 private:
     ImageLoaderFactory *_image_loader_factory;

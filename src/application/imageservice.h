@@ -19,7 +19,7 @@ public:
     Image *current_image();
 
     void load_image(std::string file_path);
-    void save_image(std::string file_path, std::string image_type);
+    void save_image(std::string file_path, std::string image_type, std::string dithering_type, int bytes_count);
 
     void change_color_space(ColorSpace color_space);
 

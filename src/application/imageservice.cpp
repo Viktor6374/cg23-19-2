@@ -44,12 +44,12 @@ void ImageService::load_image(std::string file_path)
     _current_gamma = 2.2;
 }
 
-void ImageService::save_image(std::string file_path, std::string image_type)
+void ImageService::save_image(std::string file_path, std::string image_type, std::string dithering_type, int bytes_count)
 {
     if (_current_image == nullptr)
         return;
 
-    _image_repository->save(_current_image, file_path, image_type);
+    _image_repository->save(_current_image, file_path, image_type, dithering_type, bytes_count);
 }
 
 void ImageService::change_color_space(ColorSpace color_space)

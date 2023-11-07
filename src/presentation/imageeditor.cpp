@@ -93,7 +93,7 @@ void ImageEditor::on_pushButton_2_clicked()
 
     try
     {
-        _image_service->save_image(file_path, file_format);
+        _image_service->save_image(file_path, file_format, _dithering_options.type, _dithering_options.bytes_count);
     }
     catch (std::logic_error ex)
     {
