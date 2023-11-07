@@ -17,6 +17,7 @@ ImageEditor::ImageEditor(QWidget *parent)
     _channel_masks[2] = 1;
 
     _line_drawing_options = LineDrawingOptions();
+    _dithering_options = DitheringOptions();
 
     _ui->setupUi(this);
 }

@@ -63,8 +63,14 @@ set(PROJECT_SOURCES
         infrastructure/factories/imagesaverfactory.h infrastructure/factories/imagesaverfactory.cpp
 
         presentation/models/linedrawingoptions.h presentation/models/linedrawingoptions.cpp
+        presentation/models/ditheringoptions.h presentation/models/ditheringoptions.cpp
 
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
+
+        presentation/dithering/ditheringalgorithm.h presentation/dithering/ditheringalgorithm.cpp
+        presentation/dithering/noditheringalgorithm.h presentation/dithering/noditheringalgorithm.cpp
+
+        presentation/factories/ditheringalgorithmfactory.h presentation/factories/ditheringalgorithmfactory.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
 

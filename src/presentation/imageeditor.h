@@ -4,6 +4,7 @@
 #include "../application/imageservice.h"
 #include "converters/imageconverter.h"
 #include "models/linedrawingoptions.h"
+#include "models/ditheringoptions.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -55,5 +56,6 @@ private:
     unsigned char _channel_masks[3];
 
     LineDrawingOptions _line_drawing_options;
+    DitheringOptions _dithering_options;
 };
 #endif // IMAGEEDITOR_H
