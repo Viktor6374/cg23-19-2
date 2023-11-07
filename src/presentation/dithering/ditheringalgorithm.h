@@ -8,7 +8,7 @@ class DitheringAlgorithm
 public:
     DitheringAlgorithm();
 
-    virtual unsigned char *execute(Image *image) = 0;
+    virtual unsigned char *execute(Image *image, int bytes_count) = 0;
 };
 
 #endif // DITHERINGALGORITHM_H
