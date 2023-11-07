@@ -3,3 +3,7 @@
 DitheringAlgorithm::DitheringAlgorithm()
 {
 }
+
+DitheringAlgorithm::~DitheringAlgorithm()
+{
+}

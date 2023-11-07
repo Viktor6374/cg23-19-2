@@ -47,6 +47,11 @@ set(PROJECT_SOURCES
         domain/converters/factories/torgb_converterfactory.h domain/converters/factories/torgb_converterfactory.cpp
         domain/converters/factories/fromrgb_converterfactory.h domain/converters/factories/fromrgb_converterfactory.cpp
 
+        domain/dithering/ditheringalgorithm.h domain/dithering/ditheringalgorithm.cpp
+        domain/dithering/noditheringalgorithm.h domain/dithering/noditheringalgorithm.cpp
+
+        domain/factories/ditheringalgorithmfactory.h domain/factories/ditheringalgorithmfactory.cpp
+
         application/imageservice.h application/imageservice.cpp
 
         infrastructure/imagerepository.h infrastructure/imagerepository.cpp
@@ -66,11 +71,6 @@ set(PROJECT_SOURCES
         presentation/models/ditheringoptions.h presentation/models/ditheringoptions.cpp
 
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
-
-        presentation/dithering/ditheringalgorithm.h presentation/dithering/ditheringalgorithm.cpp
-        presentation/dithering/noditheringalgorithm.h presentation/dithering/noditheringalgorithm.cpp
-
-        presentation/factories/ditheringalgorithmfactory.h presentation/factories/ditheringalgorithmfactory.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
 

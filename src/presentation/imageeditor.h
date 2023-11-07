@@ -42,6 +42,10 @@ private slots:
 
     void on_lineEdit_5_textChanged(const QString &arg1);
 
+    void on_comboBox_4_currentTextChanged(const QString &arg1);
+
+    void on_comboBox_5_currentTextChanged(const QString &arg1);
+
 private:
     void update_image_view();
 
