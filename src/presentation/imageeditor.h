@@ -46,6 +46,8 @@ private slots:
 
     void on_comboBox_5_currentTextChanged(const QString &arg1);
 
+    void on_pushButton_3_clicked();
+
 private:
     void update_image_view();
 

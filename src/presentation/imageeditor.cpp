@@ -296,3 +296,15 @@ void ImageEditor::on_comboBox_5_currentTextChanged(const QString &arg1)
     update_image_view();
 }
 
+
+void ImageEditor::on_pushButton_3_clicked()
+{
+    // _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
+    _image_service->generate_gradient(200, 100);
+
+    _ui->comboBox_2->setCurrentIndex(0);
+    _ui->lineEdit_gamma->setText("2.2");
+
+    update_image_view();
+}
+

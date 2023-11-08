@@ -52,6 +52,31 @@ void ImageService::save_image(std::string file_path, std::string image_type, std
     _image_repository->save(_current_image, file_path, image_type, dithering_type, bytes_count);
 }
 
+void ImageService::generate_gradient(int w, int h)
+{
+    std::vector<Pixel> pixels(w * h);
+
+    for (int i = 0; i < w; ++i)
+    {
+        float color = (float)i / w;
+
+        for (int j = 0; j < h; ++j)
+        {
+            pixels[i + j * w].channels[0] = color;
+            pixels[i + j * w].channels[1] = color;
+            pixels[i + j * w].channels[2] = color;
+        }
+    }
+
+    Image *gradient = new Image(w, h, pixels);
+
+    delete _current_image;
+
+    _current_image = gradient;
+    _current_gamma = 2.2;
+    _current_color_space = RGB;
+}
+
 void ImageService::change_color_space(ColorSpace color_space)
 {
     if (_current_image != nullptr)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>806</width>
-    <height>473</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -278,7 +278,7 @@
                </size>
               </property>
               <property name="text">
-               <string/>
+               <string>2.2</string>
               </property>
               <property name="placeholderText">
                <string>Insert gamma</string>
@@ -596,6 +596,20 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Generate gradient</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
