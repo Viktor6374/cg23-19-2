@@ -2,23 +2,22 @@
 
 ImageConverter::ImageConverter()
 {
+    _dithering_algorithm_factory = new DitheringAlgorithmFactory();
 }
 
-QImage *ImageConverter::convert_to_QImage(Image *image)
+ImageConverter::~ImageConverter()
 {
-    uchar *data = new uchar[image->pixels().size() * 3];
+    delete _dithering_algorithm_factory;
+}
 
-    for (int i = 0; i < image->pixels().size(); ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            unsigned char channel = (unsigned char)(image->pixels()[i].channels[j] * 255);
-
-            data[3 * i + j] = channel;
-        }
-    }
+QImage *ImageConverter::convert_to_QImage(Image *image, std::string dithering_type, int bytes_count)
+{
+    auto algorithm = _dithering_algorithm_factory->create(dithering_type);
+    unsigned char *data = algorithm->execute(image, bytes_count);
 
     QImage *qImage = new QImage(data, image->width(), image->height(), QImage::Format_RGB888);
+
+    delete algorithm;
 
     return qImage;
 }
