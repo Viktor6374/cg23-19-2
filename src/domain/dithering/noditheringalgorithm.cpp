@@ -1,4 +1,5 @@
 #include "noditheringalgorithm.h"
+#include <cmath>
 
 NoDitheringAlgorithm::NoDitheringAlgorithm()
 {
@@ -14,9 +15,11 @@ unsigned char *NoDitheringAlgorithm::execute(Image *image, int bytes_count)
     {
         for (int j = 0; j < 3; ++j)
         {
-            int channel = (unsigned char)(image->pixels()[i].channels[j] * byte_size);
+            int channel = (unsigned char)round(image->pixels()[i].channels[j] * (byte_size - 1));
+            channel *= 255;
+            channel /= byte_size - 1;
 
-            data[3 * i + j] = (unsigned char)(channel * 256 / byte_size);
+            data[3 * i + j] = channel;
         }
     }
 

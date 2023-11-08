@@ -49,6 +49,10 @@ set(PROJECT_SOURCES
 
         domain/dithering/ditheringalgorithm.h domain/dithering/ditheringalgorithm.cpp
         domain/dithering/noditheringalgorithm.h domain/dithering/noditheringalgorithm.cpp
+        domain/dithering/orderedditheringalgorithm.h domain/dithering/orderedditheringalgorithm.cpp
+        domain/dithering/randomditheringalgorithm.h domain/dithering/randomditheringalgorithm.cpp
+        domain/dithering/floydstainbergditheringalgorithm.h domain/dithering/floydstainbergditheringalgorithm.cpp
+        domain/dithering/atkinsonditheringalgorithm.h domain/dithering/atkinsonditheringalgorithm.cpp
 
         domain/factories/ditheringalgorithmfactory.h domain/factories/ditheringalgorithmfactory.cpp
 
