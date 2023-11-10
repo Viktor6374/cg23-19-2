@@ -44,12 +44,37 @@ void ImageService::load_image(std::string file_path)
     _current_gamma = 2.2;
 }
 
-void ImageService::save_image(std::string file_path, std::string image_type)
+void ImageService::save_image(std::string file_path, std::string image_type, std::string dithering_type, int bytes_count)
 {
     if (_current_image == nullptr)
         return;
 
-    _image_repository->save(_current_image, file_path, image_type);
+    _image_repository->save(_current_image, file_path, image_type, dithering_type, bytes_count);
+}
+
+void ImageService::generate_gradient(int w, int h)
+{
+    std::vector<Pixel> pixels(w * h);
+
+    for (int i = 0; i < w; ++i)
+    {
+        float color = (float)i / w;
+
+        for (int j = 0; j < h; ++j)
+        {
+            pixels[i + j * w].channels[0] = color;
+            pixels[i + j * w].channels[1] = color;
+            pixels[i + j * w].channels[2] = color;
+        }
+    }
+
+    Image *gradient = new Image(w, h, pixels);
+
+    delete _current_image;
+
+    _current_image = gradient;
+    _current_gamma = 2.2;
+    _current_color_space = RGB;
 }
 
 void ImageService::change_color_space(ColorSpace color_space)
@@ -83,6 +108,11 @@ void ImageService::assing_gamma(float gamma)
 
 void ImageService::draw_line(Point point1, Point point2, Pixel color, float width, float trans)
 {
+    _color_space_converter->convert(_current_image, _current_color_space, RGB);
+
     auto alg = DrawLineAlgorithm();
     alg.execute(_current_image, point1, point2, color, width, trans);
+
+    _color_space_converter->convert(_current_image, RGB, _current_color_space);
+
 }

@@ -5,14 +5,20 @@ P5ImageSaver::P5ImageSaver()
 {
 }
 
-void P5ImageSaver::save(Image<BytePixel> *image, std::ofstream &out)
+void P5ImageSaver::save(Image *image, std::ofstream &out, std::string dithering_type, int bytes_count)
 {
     out << "P5" << std::endl;
     out << image->width() << " " << image->height() << std::endl;
     out << 255 << std::endl;
 
-    for (auto pixel : image->pixels())
+    auto algorithm = _dithering_algorithm_factory->create(dithering_type);
+    unsigned char *data = algorithm->execute(image, bytes_count);
+
+    for (int i = 0; i < image->pixels().size() * 3; i += 3)
     {
-        out << (unsigned char)(pixel.channels[0] * 255);
+        out << data[i];
     }
+
+    delete algorithm;
+    delete [] data;
 }

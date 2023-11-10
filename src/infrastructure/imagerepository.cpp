@@ -30,13 +30,13 @@ Image<BytePixel> *ImageRepository::load(std::string file_path)
     return image;
 }
 
-void ImageRepository::save(Image<BytePixel> *image, std::string file_path, std::string image_type)
+void ImageRepository::save(Image *image, std::string file_path, std::string image_type, std::string dithering_type, int bytes_count)
 {
     std::ofstream out(file_path, std::ios::binary);
 
     ImageSaver* saver = _image_saver_factory->create(image_type);
 
-    saver->save(image, out);
+    saver->save(image, out, dithering_type, bytes_count);
 
     delete saver;
 }

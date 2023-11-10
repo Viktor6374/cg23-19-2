@@ -17,6 +17,7 @@ ImageEditor::ImageEditor(QWidget *parent)
     _channel_masks[2] = 1;
 
     _line_drawing_options = LineDrawingOptions();
+    _dithering_options = DitheringOptions();
 
     _ui->setupUi(this);
 }
@@ -55,7 +56,7 @@ void ImageEditor::update_image_view()
     auto algorithm = ConvertToGammaAlgorithm();
     algorithm.execute(&image, _image_service->current_gamma(), 2.2);
 
-    QImage *qImage = _image_converter->convert_to_QImage(&image);
+    QImage *qImage = _image_converter->convert_to_QImage(&image, _dithering_options.type, _dithering_options.bytes_count);
 
     double scale = (double)_ui->label_pic->height() / qImage->height();
 
@@ -92,7 +93,7 @@ void ImageEditor::on_pushButton_2_clicked()
 
     try
     {
-        _image_service->save_image(file_path, file_format);
+        _image_service->save_image(file_path, file_format, _dithering_options.type, _dithering_options.bytes_count);
     }
     catch (std::logic_error ex)
     {
@@ -279,3 +280,31 @@ void ImageEditor::mousePressEvent(QMouseEvent *event)
         _line_drawing_options.point1 = nullptr;
     }
 }
+
+void ImageEditor::on_comboBox_4_currentTextChanged(const QString &arg1)
+{
+    _dithering_options.type = arg1.toStdString();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_comboBox_5_currentTextChanged(const QString &arg1)
+{
+    _dithering_options.bytes_count = arg1.toInt();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_pushButton_3_clicked()
+{
+    // _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
+    _image_service->generate_gradient(200, 100);
+
+    _ui->comboBox_2->setCurrentIndex(0);
+    _ui->lineEdit_gamma->setText("2.2");
+
+    update_image_view();
+}
+

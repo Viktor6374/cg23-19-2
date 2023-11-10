@@ -4,6 +4,7 @@
 #include "../application/imageservice.h"
 #include "converters/imageconverter.h"
 #include "models/linedrawingoptions.h"
+#include "models/ditheringoptions.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -41,6 +42,12 @@ private slots:
 
     void on_lineEdit_5_textChanged(const QString &arg1);
 
+    void on_comboBox_4_currentTextChanged(const QString &arg1);
+
+    void on_comboBox_5_currentTextChanged(const QString &arg1);
+
+    void on_pushButton_3_clicked();
+
 private:
     void update_image_view();
 
@@ -55,5 +62,6 @@ private:
     unsigned char _channel_masks[3];
 
     LineDrawingOptions _line_drawing_options;
+    DitheringOptions _dithering_options;
 };
 #endif // IMAGEEDITOR_H
