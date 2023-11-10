@@ -8,7 +8,7 @@ class P5ImageLoader : public ImageLoader
 public:
     P5ImageLoader();
 
-    virtual Image *load(std::ifstream &in) override;
+    virtual Image<BytePixel> *load(std::ifstream &in) override;
 };
 
 #endif // P5IMAGELOADER_H

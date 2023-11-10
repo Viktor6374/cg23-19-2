@@ -2,6 +2,7 @@
 #define IMAGEREPOSITORY_H
 
 #include "../domain/entities/image.h"
+#include "../domain/entities/bytepixel.h"
 #include "factories/imageloaderfactory.h"
 #include "factories/imagesaverfactory.h"
 #include <string>
@@ -12,7 +13,7 @@ public:
     ImageRepository();
     ~ImageRepository();
 
-    Image *load(std::string file_path);
+    Image<BytePixel> *load(std::string file_path);
 
     void save(Image *image, std::string file_path, std::string image_type, std::string dithering_type, int bytes_count);
 

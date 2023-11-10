@@ -8,7 +8,7 @@ class P6ImageLoader : public ImageLoader
 public:
     P6ImageLoader();
 
-    virtual Image *load(std::ifstream &in) override;
+    virtual Image<BytePixel> *load(std::ifstream &in) override;
 };
 
 #endif // P6IMAGELOADER_H

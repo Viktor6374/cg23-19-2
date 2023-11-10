@@ -1,4 +1,5 @@
 #include "imageconverter.h"
+#include "../../domain/entities/floatpixel.h"
 
 ImageConverter::ImageConverter()
 {
