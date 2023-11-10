@@ -15,7 +15,7 @@ float random_float(float a, float b) {
 
 float random_round(float x)
 {
-    float border = random_float(0.001, 9.999);
+    float border = random_float(0.001, 0.999);
     float x_mod = fmodf(x, 1);
 
     if (x_mod >= border)
