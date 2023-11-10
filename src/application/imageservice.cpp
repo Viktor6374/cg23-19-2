@@ -108,6 +108,11 @@ void ImageService::assing_gamma(float gamma)
 
 void ImageService::draw_line(Point point1, Point point2, Pixel color, float width, float trans)
 {
+    _color_space_converter->convert(_current_image, _current_color_space, RGB);
+
     auto alg = DrawLineAlgorithm();
     alg.execute(_current_image, point1, point2, color, width, trans);
+
+    _color_space_converter->convert(_current_image, RGB, _current_color_space);
+
 }
