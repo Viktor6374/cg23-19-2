@@ -32,10 +32,12 @@ unsigned char *OrderedDitheringAlgorithm::execute(Image *image, int bytes_count)
 
     for (int i = 0; i < image->pixels().size(); ++i)
     {
+        float m = get_m(i, image->width());
+
         for (int j = 0; j < 3; ++j)
         {
             float value = image->pixels()[i].channels[j];
-            value += (get_m(3 * i + j, 3 * image->width()) - 0.5) / bytes_count;
+            value += (m - 0.5) / bytes_count;
             value = fminf(1, value);
             value = fmaxf(0, value);
 
