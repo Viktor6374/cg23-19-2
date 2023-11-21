@@ -13,9 +13,8 @@ float random_float(float a, float b) {
     return a + r;
 }
 
-float random_round(float x)
+float border_round(float x, float border)
 {
-    float border = random_float(0.001, 0.999);
     float x_mod = fmodf(x, 1);
 
     if (x_mod >= border)
@@ -32,9 +31,11 @@ unsigned char *RandomDitheringAlgorithm::execute(Image *image, int bytes_count)
 
     for (int i = 0; i < image->pixels().size(); ++i)
     {
+        float border = random_float(0.001, 0.999);
+
         for (int j = 0; j < 3; ++j)
         {
-            int channel = (unsigned char)random_round(image->pixels()[i].channels[j] * (byte_size - 1));
+            int channel = (unsigned char)border_round(image->pixels()[i].channels[j] * (byte_size - 1), border);
             channel *= 255;
             channel /= byte_size - 1;
 
