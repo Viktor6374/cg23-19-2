@@ -1,6 +1,8 @@
 #include "imageeditor.h"
 #include "presentation/ui_imageeditor.h"
 #include "../domain/algorithms/converttogammaalgorithm.h"
+#include "../domain/algorithms/createhistogramalgorithm.h"
+#include "../domain/algorithms/drawhistogramalgorithm.h"
 #include <QPixmap>
 #include <string>
 #include <stdexcept>
@@ -50,6 +52,8 @@ void ImageEditor::update_image_view()
                 _image_service->current_image()->height(),
                 pixels);
 
+    update_hists(&image);
+
     auto converter = ColorSpaceConverter();
     converter.convert(&image, _image_service->current_color_cpace(), RGB);
 
@@ -66,6 +70,69 @@ void ImageEditor::update_image_view()
     _ui->label_pic->setPixmap(pixmap);
 
     delete qImage;
+}
+
+void ImageEditor::update_hists(Image *image)
+{
+    auto algorithm = CreateHistogramAlgorithm();
+    Histogram *hist = algorithm.execute(image, _dithering_options.type, _dithering_options.bytes_count);
+
+    update_hist1(hist->get_channel_values()[0]);
+    update_hist2(hist->get_channel_values()[1]);
+    update_hist3(hist->get_channel_values()[2]);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist1(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage)
+            .scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist1->setPixmap(pixmap);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist2(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    double scale = (double)_ui->label_hist2->height() / qImage->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage)
+            .scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist2->setPixmap(pixmap);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist3(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    double scale = (double)_ui->label_hist3->height() / qImage->height();
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage)
+            .scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist3->setPixmap(pixmap);
+
+    delete hist;
 }
 
 void ImageEditor::on_pushButton_clicked()

@@ -50,6 +50,10 @@ private slots:
 
 private:
     void update_image_view();
+    void update_hists(Image *image);
+    void update_hist1(const std::vector<int> &channel_values);
+    void update_hist2(const std::vector<int> &channel_values);
+    void update_hist3(const std::vector<int> &channel_values);
 
     void resizeEvent(QResizeEvent *event);
     void mousePressEvent(QMouseEvent *event);
