@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
         domain/algorithms/drawlinealgorithm.h domain/algorithms/drawlinealgorithm.cpp
         domain/algorithms/createhistogramalgorithm.h domain/algorithms/createhistogramalgorithm.cpp
         domain/algorithms/drawhistogramalgorithm.h domain/algorithms/drawhistogramalgorithm.cpp
+        domain/algorithms/brightnessautocorrectionalgorithm.h domain/algorithms/brightnessautocorrectionalgorithm.cpp
 
         domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
         domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
