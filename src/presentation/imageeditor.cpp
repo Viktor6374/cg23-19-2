@@ -1,6 +1,8 @@
 #include "imageeditor.h"
 #include "presentation/ui_imageeditor.h"
 #include "../domain/algorithms/converttogammaalgorithm.h"
+#include "../domain/algorithms/createhistogramalgorithm.h"
+#include "../domain/algorithms/drawhistogramalgorithm.h"
 #include <QPixmap>
 #include <string>
 #include <stdexcept>
@@ -50,6 +52,8 @@ void ImageEditor::update_image_view()
                 _image_service->current_image()->height(),
                 pixels);
 
+    update_hists(&image);
+
     auto converter = ColorSpaceConverter();
     converter.convert(&image, _image_service->current_color_cpace(), RGB);
 
@@ -58,14 +62,77 @@ void ImageEditor::update_image_view()
 
     QImage *qImage = _image_converter->convert_to_QImage(&image, _dithering_options.type, _dithering_options.bytes_count);
 
-    double scale = (double)_ui->label_pic->height() / qImage->height();
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    QPixmap pixmap = QPixmap::fromImage(*qImage)
-            .scaled(qImage->width() * scale, qImage->height() * scale);
+    double scale = (double)_ui->label_pic->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
 
     delete qImage;
+}
+
+void ImageEditor::update_hists(Image *image)
+{
+    auto algorithm = CreateHistogramAlgorithm();
+    Histogram *hist = algorithm.execute(image, _dithering_options.type, _dithering_options.bytes_count);
+
+    update_hist1(hist->get_channel_values()[0]);
+    update_hist2(hist->get_channel_values()[1]);
+    update_hist3(hist->get_channel_values()[2]);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist1(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
+
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist1->setPixmap(pixmap);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist2(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
+
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist2->setPixmap(pixmap);
+
+    delete hist;
+}
+
+void ImageEditor::update_hist3(const std::vector<int> &channel_values)
+{
+    auto algorithm = DrawHistogramAlgorithm();
+    Image *hist = algorithm.execute(channel_values);
+
+    QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
+
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
+
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+
+    _ui->label_hist3->setPixmap(pixmap);
+
+    delete hist;
 }
 
 void ImageEditor::on_pushButton_clicked()
@@ -242,7 +309,7 @@ void ImageEditor::on_lineEdit_5_textChanged(const QString &arg1)
 {
     float w = arg1.toDouble();
 
-    _line_drawing_options.width = w;
+    _line_drawing_options.width = w / 2;
 }
 
 void ImageEditor::mousePressEvent(QMouseEvent *event)
@@ -299,11 +366,23 @@ void ImageEditor::on_comboBox_5_currentTextChanged(const QString &arg1)
 
 void ImageEditor::on_pushButton_3_clicked()
 {
-    // _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
-    _image_service->generate_gradient(400, 200);
+     _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
 
     _ui->comboBox_2->setCurrentIndex(0);
     _ui->lineEdit_gamma->setText("2.2");
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_pushButton_4_clicked()
+{
+    float skip = _ui->lineEdit_8->text().toDouble();
+
+    if (_image_service->current_image() == nullptr || skip < 0 || skip >= 0.5)
+        return;
+
+    _image_service->AutocorrectBrightness(skip);
 
     update_image_view();
 }

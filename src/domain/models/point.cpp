@@ -2,7 +2,6 @@
 
 Point::Point()
 {
-
 }
 
 Point::Point(float x, float y, float trans)

@@ -1,6 +1,7 @@
 #include "imageservice.h"
 #include "../domain/algorithms/converttogammaalgorithm.h"
 #include "../domain/algorithms/drawlinealgorithm.h"
+#include "../domain/algorithms/brightnessautocorrectionalgorithm.h"
 
 ImageService::ImageService()
 {
@@ -112,6 +113,17 @@ void ImageService::draw_line(Point point1, Point point2, Pixel color, float widt
 
     auto alg = DrawLineAlgorithm();
     alg.execute(_current_image, point1, point2, color, width, trans);
+
+    _color_space_converter->convert(_current_image, RGB, _current_color_space);
+
+}
+
+void ImageService::AutocorrectBrightness(float skip)
+{
+    _color_space_converter->convert(_current_image, _current_color_space, RGB);
+
+    auto algorithm = BrightnessAutocorrectionAlgorithm();
+    algorithm.execute(_current_image, skip);
 
     _color_space_converter->convert(_current_image, RGB, _current_color_space);
 
