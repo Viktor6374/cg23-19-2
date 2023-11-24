@@ -52,8 +52,6 @@ void ImageEditor::update_image_view()
                 _image_service->current_image()->height(),
                 pixels);
 
-    update_hists(&image);
-
     auto converter = ColorSpaceConverter();
     converter.convert(&image, _image_service->current_color_cpace(), RGB);
 
@@ -62,12 +60,14 @@ void ImageEditor::update_image_view()
 
     QImage *qImage = _image_converter->convert_to_QImage(&image, _dithering_options.type, _dithering_options.bytes_count);
 
-    double scale = (double)_ui->label_pic->height() / qImage->height();
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    QPixmap pixmap = QPixmap::fromImage(*qImage)
-            .scaled(qImage->width() * scale, qImage->height() * scale);
+    double scale = (double)_ui->label_pic->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
+
+    update_hists(&image);
 
     delete qImage;
 }
@@ -91,10 +91,10 @@ void ImageEditor::update_hist1(const std::vector<int> &channel_values)
 
     QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
 
-    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    QPixmap pixmap = QPixmap::fromImage(*qImage)
-            .scaled(qImage->width() * scale, qImage->height() * scale);
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist1->setPixmap(pixmap);
 
@@ -108,10 +108,10 @@ void ImageEditor::update_hist2(const std::vector<int> &channel_values)
 
     QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
 
-    double scale = (double)_ui->label_hist2->height() / qImage->height();
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    QPixmap pixmap = QPixmap::fromImage(*qImage)
-            .scaled(qImage->width() * scale, qImage->height() * scale);
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist2->setPixmap(pixmap);
 
@@ -125,10 +125,10 @@ void ImageEditor::update_hist3(const std::vector<int> &channel_values)
 
     QImage *qImage = _image_converter->convert_to_QImage(hist, "Disabled", 8);
 
-    double scale = (double)_ui->label_hist3->height() / qImage->height();
+    QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    QPixmap pixmap = QPixmap::fromImage(*qImage)
-            .scaled(qImage->width() * scale, qImage->height() * scale);
+    double scale = (double)_ui->label_hist1->height() / qImage->height();
+    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist3->setPixmap(pixmap);
 
@@ -366,8 +366,8 @@ void ImageEditor::on_comboBox_5_currentTextChanged(const QString &arg1)
 
 void ImageEditor::on_pushButton_3_clicked()
 {
-    // _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
-    _image_service->generate_gradient(400, 200);
+     _image_service->generate_gradient(_ui->label_pic->width(), _ui->label_pic->height());
+//    _image_service->generate_gradient(400, 200);
 
     _ui->comboBox_2->setCurrentIndex(0);
     _ui->lineEdit_gamma->setText("2.2");
