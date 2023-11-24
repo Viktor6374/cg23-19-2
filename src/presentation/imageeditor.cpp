@@ -52,6 +52,8 @@ void ImageEditor::update_image_view()
                 _image_service->current_image()->height(),
                 pixels);
 
+    update_hists(&image);
+
     auto converter = ColorSpaceConverter();
     converter.convert(&image, _image_service->current_color_cpace(), RGB);
 
@@ -66,8 +68,6 @@ void ImageEditor::update_image_view()
     pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
-
-    update_hists(&image);
 
     delete qImage;
 }
