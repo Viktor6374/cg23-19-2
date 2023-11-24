@@ -30,6 +30,8 @@ public:
     void convert_to_gamma(float gamma);
     void assing_gamma(float gamma);
 
+    void AutocorrectBrightness(float skip);
+
 private:
     ImageRepository *_image_repository;
     ColorSpaceConverter *_color_space_converter;

@@ -1,0 +1,48 @@
+#include "brightnessautocorrectionalgorithm.h"
+#include "createhistogramalgorithm.h"
+#include <cmath>
+
+BrightnessAutocorrectionAlgorithm::BrightnessAutocorrectionAlgorithm()
+{
+}
+
+float get_min(Histogram *hist, float skip)
+{
+    for (int i = skip * 255; i < 256; ++i)
+        for (int j = 0; j < 3; ++j)
+            if (hist->get_channel_values()[j][i] != 0)
+                return i / 255.0;
+
+    return 0.5;
+}
+
+float get_max(Histogram *hist, float skip)
+{
+    for (int i = 255 - skip * 255; i >= 0; --i)
+        for (int j = 0; j < 3; ++j)
+            if (hist->get_channel_values()[j][i] != 0)
+                return i / 255.0;
+
+    return 0.5;
+}
+
+void BrightnessAutocorrectionAlgorithm::execute(Image *image, float skip)
+{
+    auto create_hist_alg = CreateHistogramAlgorithm();
+    Histogram *hist = create_hist_alg.execute(image, "Disabled", 8);
+
+    float min = get_min(hist, skip);
+    float max = get_max(hist, skip);
+
+    for (auto &pixel : image->pixels())
+    {
+        for (auto &channel : pixel.channels)
+        {
+            channel = (channel - min) / (max - min);
+            channel = fmaxf(channel, 0);
+            channel = fminf(channel, 1);
+        }
+    }
+
+    delete hist;
+}
