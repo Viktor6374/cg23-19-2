@@ -17,6 +17,10 @@ ImageSaver *ImageSaverFactory::create(std::string image_type)
     {
         return new P6ImageSaver();
     }
+    else if (image_type == "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A")
+    {
+        return nullptr;
+    }
     else
     {
         throw std::logic_error("Unsupported or non-existent file");

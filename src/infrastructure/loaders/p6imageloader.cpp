@@ -25,3 +25,5 @@ Image *P6ImageLoader::load(std::ifstream &in)
 
     return new Image(width, height, pixels);
 }
+
+

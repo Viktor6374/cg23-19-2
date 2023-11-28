@@ -89,6 +89,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ImageEditor
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        infrastructure/loaders/pngimageloader.h infrastructure/loaders/pngimageloader.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ImageEditor APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -115,7 +116,6 @@ set_target_properties(ImageEditor PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
-
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ImageEditor)
 endif()
