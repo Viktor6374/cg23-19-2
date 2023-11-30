@@ -12,87 +12,88 @@ PNGImageLoader::PNGImageLoader()
 
 }
 
+
 QByteArray qGzipUncompress(const QByteArray& data)
 {
-    if (!data.data()) {
-        qWarning("qGzipUncompress: Data is null");
+    if (data.size() <= 4) {
+        // The input data is too small to be valid compressed data
         return QByteArray();
     }
 
-    // Инициализировать структуру потока
-    z_stream unGzipStream;
-    unGzipStream.next_in = (z_Bytef*) data.data (); // введите начальный адрес байта
-    unGzipStream.avail_in = data.size (); // введите размер байта
-    unGzipStream.zalloc = Z_NULL;
-    unGzipStream.zfree = Z_NULL;
-    unGzipStream.opaque = Z_NULL;
-        // Инициировать состояние внутреннего потока
-    int ret = inflateInit2(&unGzipStream,16);
-    if(ret != Z_OK)
-    {
-        qWarning("qGzipUncompress: The call to inflateInit2 returns the wrong value");
-        return QByteArray();
-    }
-
-    unsigned char buffer[4096];
-    QByteArray gzipUnomprData;
-        // Используйте буферный цикл 4MB для получения данных и добавить полученные данные в Uncprdata, пока полученные данные не станут пустыми для пустых
-    do
-    {
-        unGzipStream.avail_out = 4096; // Получить размер области буфера декомпрессии данных
-        unGzipStream.next_out = buffer; // получение начального адреса зоны буфера данных декомпрессии
-        memset(buffer,0,4096);
-            // Delax Data
-        ret = inflate(&unGzipStream,Z_NO_FLUSH);
-        switch(ret)
-        {
-        case Z_MEM_ERROR:
-            qWarning("qGzipUncompress: Z_DATA_ERROR: Not enough memory");
-            return QByteArray();
-        case Z_NEED_DICT:
-            ret = Z_DATA_ERROR;
-        case Z_DATA_ERROR:
-            qWarning("qGzipUncompress: Z_DATA_ERROR: Input data is corrupted");
-            return QByteArray();
-        }
-        if(ret != Z_FINISH)
-        {
-            gzipUnomprData.append((char*)buffer);
-        }
-    }while(unGzipStream.avail_out == 0);
-    return gzipUnomprData;
-}
-
-QByteArray UnCompress(QByteArray src)
-{
-    QByteArray outBuffer;
     z_stream strm;
-    strm.zalloc = NULL;
-    strm.zfree = NULL;
-    strm.opaque = NULL;
+    strm.next_in = reinterpret_cast<Bytef *>(const_cast<char *>(data.data()));
+    strm.avail_in = data.size();
+    strm.total_out = 0;
+    strm.zalloc = Z_NULL;
+    strm.zfree = Z_NULL;
+    strm.opaque = Z_NULL;
 
-    strm.avail_in = src.size();
-    strm.next_in = (Bytef *)src.data();
-
-    int err = -1, ret = -1;
-    err = inflateInit2(&strm, MAX_WBITS + 16);
-    if (err == Z_OK) {
-        while (true)
-        {
-            char buffer[4096] = { 0 };
-            strm.avail_out = 4096;
-            strm.next_out = (Bytef *)buffer;
-            int code = inflate(&strm, Z_FINISH);
-            outBuffer.append(buffer, 4096 - strm.avail_out);
-            if (Z_STREAM_END == code || Z_OK != code)
-            {
-                break;
-            }
-        }
+    if (inflateInit2(&strm, 15 + 32) != Z_OK) {
+        return QByteArray();
     }
+
+    QByteArray outBuffer;
+    int bufferSize = 4096;
+    std::unique_ptr<char[]> buffer(new char[bufferSize]);
+
+    int ret;
+    do {
+        strm.next_out = reinterpret_cast<Bytef *>(buffer.get());
+        strm.avail_out = bufferSize;
+
+        ret = inflate(&strm, Z_NO_FLUSH);
+        switch (ret) {
+        case Z_NEED_DICT:
+        case Z_DATA_ERROR:
+        case Z_MEM_ERROR:
+            inflateEnd(&strm);
+            return QByteArray();
+        }
+
+        if (bufferSize - strm.avail_out > 0) {
+            outBuffer.append(buffer.get(), bufferSize - strm.avail_out);
+        }
+    } while (strm.avail_out == 0);
+
     inflateEnd(&strm);
+
+    if (ret != Z_STREAM_END) {
+        return QByteArray(); // Decompression didn't finish successfully
+    }
+
     return outBuffer;
 }
+
+//QByteArray UnCompress(QByteArray src)
+
+//    QByteArray outBuffer;
+//    z_stream strm;
+//    strm.zalloc = NULL;
+//    strm.zfree = NULL;
+//    strm.opaque = NULL;
+
+//    strm.avail_in = src.size();
+//    strm.next_in = (Bytef *)src.data();
+
+//    int err = -1, ret = -1;
+//    err = inflateInit2(&strm, MAX_WBITS);
+//    if (err == Z_OK) {
+//        while (true)
+//        {
+//            char buffer[4096] = { 0 };
+//            strm.avail_out = 4096;
+//            strm.next_out = (Bytef *)buffer;
+//            int code = inflate(&strm, Z_FINISH);
+//            outBuffer.append(buffer, 4096 - strm.avail_out);
+//            if (Z_STREAM_END == code || Z_OK != code)
+//            {
+//                break;
+//            }
+//        }
+//    }
+//    inflateEnd(&strm);
+//    return outBuffer;
+//}
 
 int bytes_to_int(char *bytes, int bit) {
 //    return pow(256,0) * bytes[0] + pow(256,1) * bytes[1] + pow(256,2) * bytes[2] + pow(256,3) * bytes[3];
@@ -177,6 +178,20 @@ QByteArray Compress(QByteArray postBody)
 }
 
 
+QByteArray removeEvery1280thByte(const QByteArray &original) {
+    QByteArray result;
+    result.reserve(original.size() - original.size() / (1280 * 3)); // Optional, to optimize memory allocation
+
+    for (int i = 0; i < original.size(); ++i) {
+        if ((i + 1) % (1280 * 3) != 0) {
+            // Keep the byte if its position is not a multiple of 1280
+            result.append(original[i]);
+        }
+    }
+
+    return result;
+}
+
 
 Image *PNGImageLoader::load(std::ifstream &in)
 {
@@ -198,12 +213,12 @@ Image *PNGImageLoader::load(std::ifstream &in)
         in.read((char *)type, 4);
         t = type;
         int length = bytes_to_int(length_str, 8);
-        char data[length];
+        unsigned char data[length];
         in.read((char *)data, length);
         if (std::string(type) == "IHDR")
         {
-            width = bytes_to_int(data, 8);
-            height = bytes_to_int(data + 4, 8);
+            width = bytes_to_int((char*) data, 8);
+            height = bytes_to_int((char*)data + 4, 8);
             number_bits = (int) data[8];
             color_type = (int)data[9];
         }
@@ -231,7 +246,7 @@ Image *PNGImageLoader::load(std::ifstream &in)
         char chunk[length + 8];
         strcpy(chunk, length_str);
         strcat(chunk, type);
-        strcat(chunk, data);
+        strcat(chunk, (char*)data);
         int e = compressed_bytes.size();
         unsigned long crc = Crc32(reinterpret_cast<unsigned char*>(chunk), (unsigned long)(length + 8));
         unsigned int crc2 = CRC32_function((unsigned char*)chunk, (unsigned long)(length + 8));
@@ -239,16 +254,33 @@ Image *PNGImageLoader::load(std::ifstream &in)
 //            throw std::logic_error(std::to_string(sum) + " " + std::to_string(crc));
         }
     } while(t != "IEND");
-//    QByteArray img = QByteArray(reinterpret_cast<const char*>(compressed_bytes.data()), compressed_bytes.size());
-//    QByteArray uncompressed_bytes = qGzipUncompress(img);
+    QByteArray img = QByteArray(reinterpret_cast<const char*>(compressed_bytes.data()), compressed_bytes.size());
+    QByteArray uncompressed_bytes = qGzipUncompress(img);
+
+    uncompressed_bytes = removeEvery1280thByte(uncompressed_bytes);
+
+    QByteArray test("testq");
+    for (int i =0; i < 1000; i++){
+        test.append("test1");
+    }
+    QByteArray comp = Compress(test);
+    QByteArray uncomp = qGzipUncompress(comp);
 
     std::vector<Pixel> pixels;
-    for (int i = 0; i < compressed_bytes.size(); i += 3)
+//    for (int i = 0; i < uncompressed_bytes.size() - 2; i += 1){
+//        if (i % 4096 ==0){
+//            uncompressed_bytes.remove(i, 1);
+//        }
+//    }
+    for (int i = 0; i < uncompressed_bytes.size() - 2; i += 3)
     {
-        Pixel current_pixel(compressed_bytes[i] / 255.0, compressed_bytes[i + 1] / 255.0, compressed_bytes[i + 2] / 255.0);
+//        if (i % 1280 == 0 || (i + 1) % 1280 == 0 || (i + 2) % 1280 == 0){
+//            continue;
+//        }
+        Pixel current_pixel(((float)uncompressed_bytes[i] / 255.0 + 0.5), ((float)uncompressed_bytes[i + 1] / 255.0 + 0.5), ((float)uncompressed_bytes[i + 2]) / 255.0 + 0.5);
         pixels.push_back(current_pixel);
     }
-    throw std::logic_error(std::to_string(width * height) + " " + std::to_string(pixels.size()));
+//    throw std::logic_error(std::to_string(width * height) + " " + std::to_string(uncompressed_bytes.size()));
     return new Image(width, height, pixels);
 }
 
