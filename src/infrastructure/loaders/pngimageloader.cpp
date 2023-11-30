@@ -277,7 +277,7 @@ Image *PNGImageLoader::load(std::ifstream &in)
 //        if (i % 1280 == 0 || (i + 1) % 1280 == 0 || (i + 2) % 1280 == 0){
 //            continue;
 //        }
-        Pixel current_pixel(((float)uncompressed_bytes[i] / 255.0 + 0.5), ((float)uncompressed_bytes[i + 1] / 255.0 + 0.5), ((float)uncompressed_bytes[i + 2]) / 255.0 + 0.5);
+        Pixel current_pixel(((float)uncompressed_bytes[i] / 255.0), ((float)uncompressed_bytes[i + 1] / 255.0), ((float)uncompressed_bytes[i + 2]) / 255.0);
         pixels.push_back(current_pixel);
     }
 //    throw std::logic_error(std::to_string(width * height) + " " + std::to_string(uncompressed_bytes.size()));
