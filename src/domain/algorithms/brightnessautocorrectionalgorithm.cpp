@@ -8,22 +8,42 @@ BrightnessAutocorrectionAlgorithm::BrightnessAutocorrectionAlgorithm()
 
 float get_min(Histogram *hist, float skip)
 {
-    for (int i = skip * 255; i < 256; ++i)
-        for (int j = 0; j < 3; ++j)
-            if (hist->get_channel_values()[j][i] != 0)
-                return i / 255.0;
+    float res = 0;
+    bool found = false;
 
-    return 0.5;
+    for (int i = 0; 2 * i < 256; ++i)
+        for (int j = 0; j < 3; ++j)
+            if (hist->get_channel_values()[j][i] != 0 && !found)
+            {
+                res =  i / 255.0;
+                found = true;
+            }
+
+    res += skip;
+    res = fmaxf(0, res);
+    res = fminf(0.5, res);
+
+    return res;
 }
 
 float get_max(Histogram *hist, float skip)
 {
-    for (int i = 255 - skip * 255; i >= 0; --i)
-        for (int j = 0; j < 3; ++j)
-            if (hist->get_channel_values()[j][i] != 0)
-                return i / 255.0;
+    float res = 1;
+    bool found = false;
 
-    return 0.5;
+    for (int i = 255; 2 * i >= 256; --i)
+        for (int j = 0; j < 3; ++j)
+            if (hist->get_channel_values()[j][i] != 0 && !found)
+            {
+                res = i / 255.0;
+                found = true;
+            }
+
+    res -= skip;
+    res = fmaxf(0.5, res);
+    res = fminf(1, res);
+
+    return res;
 }
 
 void BrightnessAutocorrectionAlgorithm::execute(Image *image, float skip)
