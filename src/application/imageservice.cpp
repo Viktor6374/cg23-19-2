@@ -126,5 +126,4 @@ void ImageService::AutocorrectBrightness(float skip)
     algorithm.execute(_current_image, skip);
 
     _color_space_converter->convert(_current_image, RGB, _current_color_space);
-
 }
