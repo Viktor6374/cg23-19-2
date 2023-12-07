@@ -60,6 +60,12 @@ set(PROJECT_SOURCES
 
         domain/factories/ditheringalgorithmfactory.h domain/factories/ditheringalgorithmfactory.cpp
 
+        domain/scaling/scalingalgorithm.h domain/scaling/scalingalgorithm.cpp
+        domain/scaling/closestneighbouralgorithm.h domain/scaling/closestneighbouralgorithm.cpp
+        domain/scaling/bilinearalgorithm.h domain/scaling/bilinearalgorithm.cpp
+        domain/scaling/lanczos3algorithm.h domain/scaling/lanczos3algorithm.cpp
+        domain/scaling/bcsplinealgorithm.h domain/scaling/bcsplinealgorithm.cpp
+
         application/imageservice.h application/imageservice.cpp
 
         infrastructure/imagerepository.h infrastructure/imagerepository.cpp
@@ -81,6 +87,8 @@ set(PROJECT_SOURCES
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
+
+        presentation/widgets/nearestneighbourinputwidget.h presentation/widgets/nearestneighbourinputwidget.cpp
 
         main.cpp
 )

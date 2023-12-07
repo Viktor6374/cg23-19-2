@@ -127,3 +127,15 @@ void ImageService::AutocorrectBrightness(float skip)
 
     _color_space_converter->convert(_current_image, RGB, _current_color_space);
 }
+
+void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm)
+{
+    if (_current_image == nullptr)
+            return;
+
+    Image *scaled_image = algorithm->execute(_current_image, new_width, new_height, shift);
+
+    delete _current_image;
+
+    _current_image = scaled_image;
+}

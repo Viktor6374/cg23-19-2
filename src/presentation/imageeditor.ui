@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>806</width>
-    <height>522</height>
+    <height>609</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -766,8 +766,50 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuScaling">
+    <property name="title">
+     <string>Scaling</string>
+    </property>
+    <addaction name="actionNearest_neighbour"/>
+    <addaction name="actionBilinear"/>
+    <addaction name="actionLanczos3"/>
+    <addaction name="actionBC_spline"/>
+   </widget>
+   <widget class="QMenu" name="menuInfo">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionInfo"/>
+   </widget>
+   <addaction name="menuInfo"/>
+   <addaction name="menuScaling"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNearest_neighbour">
+   <property name="text">
+    <string>Nearest neighbour</string>
+   </property>
+  </action>
+  <action name="actionBilinear">
+   <property name="text">
+    <string>Bilinear</string>
+   </property>
+  </action>
+  <action name="actionLanczos3">
+   <property name="text">
+    <string>Lanczos3</string>
+   </property>
+  </action>
+  <action name="actionBC_spline">
+   <property name="text">
+    <string>BC-spline</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -45,3 +45,13 @@ const std::vector<Pixel>& Image::pixels() const
 {
     return _pixels;
 }
+
+Pixel &Image::pixel_at(int x, int y)
+{
+    return _pixels[x + y * _width];
+}
+
+const Pixel &Image::pixel_at(int x, int y) const
+{
+    return _pixels[x + y * _width];
+}
