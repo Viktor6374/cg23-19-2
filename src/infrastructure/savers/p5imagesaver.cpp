@@ -1,5 +1,4 @@
 #include "p5imagesaver.h"
-#include <limits>
 
 P5ImageSaver::P5ImageSaver()
 {

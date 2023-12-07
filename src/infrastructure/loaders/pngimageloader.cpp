@@ -60,38 +60,7 @@ QByteArray qGzipUncompress(const QByteArray& data) {
     return outBuffer;
 }
 
-//QByteArray UnCompress(QByteArray src)
-
-//    QByteArray outBuffer;
-//    z_stream strm;
-//    strm.zalloc = NULL;
-//    strm.zfree = NULL;
-//    strm.opaque = NULL;
-
-//    strm.avail_in = src.size();
-//    strm.next_in = (Bytef *)src.data();
-
-//    int err = -1, ret = -1;
-//    err = inflateInit2(&strm, MAX_WBITS);
-//    if (err == Z_OK) {
-//        while (true)
-//        {
-//            char buffer[4096] = { 0 };
-//            strm.avail_out = 4096;
-//            strm.next_out = (Bytef *)buffer;
-//            int code = inflate(&strm, Z_FINISH);
-//            outBuffer.append(buffer, 4096 - strm.avail_out);
-//            if (Z_STREAM_END == code || Z_OK != code)
-//            {
-//                break;
-//            }
-//        }
-//    }
-//    inflateEnd(&strm);
-//    return outBuffer;
-//}
-
-int bytes_to_int(const char *bytes) {
+unsigned int bytes_to_int(const char *bytes) {
     return (static_cast<unsigned char>(bytes[0]) << 24) |
            (static_cast<unsigned char>(bytes[1]) << 16) |
            (static_cast<unsigned char>(bytes[2]) << 8) |
@@ -103,41 +72,6 @@ void int_to_bytes(int x, char* ch, int bit) {
     ch[1] = (char)((x >> 2 * bit) & ((int)pow(2, bit) - 1));
     ch[0] = (char)((x >> 3 * bit) & ((int)pow(2, bit) - 1));
 }
-
-unsigned int CRC32_function(unsigned char *buf, unsigned long len)
-{
-    unsigned long crc_table[256];
-    unsigned long crc;
-    for (int i = 0; i < 256; i++)
-    {
-        crc = i;
-        for (int j = 0; j < 8; j++)
-            crc = crc & 1 ? (crc >> 1) ^ 0xEDB88320UL : crc >> 1;
-        crc_table[i] = crc;
-    };
-    crc = 0xFFFFFFFFUL;
-    while (len--)
-        crc = crc_table[(crc ^ *buf++) & 0xFF] ^ (crc >> 8);
-    return crc ^ 0xFFFFFFFFUL;
-}
-
-unsigned long Crc32(unsigned char *buf, unsigned long len)
-{
-    //инициализируем таблицу расчёта Crc32
-    unsigned long crc_table[256];//массив 32 бита = 4 байтам
-    unsigned long crc;//переменная 32 бита = 4 байтам
-    for (int i = 0; i < 256; i++)//инициализируем цикл массива
-    {
-        crc = i;
-        for (int j = 0; j < 8; j++)//цикл перебора полинома
-            crc = crc & 1 ? (crc >> 1) ^ 0xEDB88320UL : crc >> 1;
-        crc_table[i] = crc;
-    };
-    crc = 0xFFFFFFFFUL;
-    while (len--)// проверка условия продолжения
-        crc = crc_table[(crc ^ *buf++) & 0xFF] ^ (crc >> 8);
-    return crc ^ 0xFFFFFFFFUL; //конец функции расчёта Crc32
-};
 
 
 QByteArray Compress(QByteArray postBody)
@@ -188,65 +122,65 @@ unsigned char Paeth_predictor(int left, int up, int upper_left){
     }
 }
 
-QByteArray filter(const QByteArray &original) {
+QByteArray filter(const QByteArray &original, int width, int height, int bytes_for_pixel) {
     QByteArray result;
-    result.reserve(original.size() - original.size() / (1280 * 3)); // Optional, to optimize memory allocation
+    result.reserve(original.size() - original.size() / (width * bytes_for_pixel)); // Optional, to optimize memory allocation
     std::vector<unsigned char> filter_bytes;
 
     int number_string = 0;
-    for (int i = 0; i < original.size(); i += 1280 * 3 + 1) {
+    for (int i = 0; i < original.size(); i += width * bytes_for_pixel + 1) {
         unsigned char filter = original[i];
         filter_bytes.push_back(filter);
         switch (filter) {
         case 0:
-            for (int j = i + 1; j < i + 1280 * 3 + 1; j++){
+            for (int j = i + 1; j < i + width * bytes_for_pixel + 1; j++){
                 result.append(original[j]);
             }
             break;
         case 1:
-            for (int j = i + 1; j < i + 1280 * 3 + 1; j++){
-                if (result.size() - 3 < number_string * 1280 * 3){
+            for (int j = i + 1; j < i + width * bytes_for_pixel + 1; j++){
+                if (result.size() - 3 < number_string * width * bytes_for_pixel){
                     result.append(original[j]);
                     continue;
                 }
-                result.append(original[j] + result[result.size() - 3]);
+                result.append(original[j] + result[result.size() - bytes_for_pixel]);
             }
             break;
         case 2:
-            for (int j = i + 1; j < i + 1280 * 3 + 1; j++){
-                if (result.size() - 1280 * 3 < 0){
+            for (int j = i + 1; j < i + width * bytes_for_pixel + 1; j++){
+                if (result.size() - width * bytes_for_pixel < 0){
                     result.append(original[j]);
                     continue;
                 }
-                result.append(original[j] + result[result.size() - 1280 * 3]);
+                result.append(original[j] + result[result.size() - width * bytes_for_pixel]);
             }
             break;
         case 3:
-            for (int j = i + 1; j < i + 1280 * 3 + 1; j++){
+            for (int j = i + 1; j < i + width * bytes_for_pixel + 1; j++){
                 unsigned char first = 0;
                 unsigned char second = 0;
-                if (result.size() - 3 >= number_string * 1280 * 3){
-                    first = result[result.size() - 3];
+                if (result.size() - bytes_for_pixel >= number_string * width * bytes_for_pixel){
+                    first = result[result.size() - bytes_for_pixel];
                 }
-                if (result.size() - 1280 * 3 >= 0){
-                    second = result[result.size() - 1280 * 3];
+                if (result.size() - width * bytes_for_pixel >= 0){
+                    second = result[result.size() - width * bytes_for_pixel];
                 }
                 result.append(original[j] + (first + second) / 2);
             }
             break;
         case 4:
-            for (int j = i + 1; j < i + 1280 * 3 + 1; j++){
+            for (int j = i + 1; j < i + width * bytes_for_pixel + 1; j++){
                 unsigned char left = 0;
-                if (result.size() - 3 >= i + 1){
-                    left = result[result.size() - 3];
+                if (result.size() - bytes_for_pixel >= i + 1){
+                    left = result[result.size() - bytes_for_pixel];
                 }
                 unsigned char up = 0;
-                if (result.size() - 1280 * 3 >= 0){
-                    up = result[result.size() - 1280 * 3];
+                if (result.size() - width * bytes_for_pixel >= 0){
+                    up = result[result.size() - width * bytes_for_pixel];
                 }
                 unsigned char upper_left = 0;
-                if (result.size() - 1280 * 3 - 1 >= std::max(i - 1280 * 3 + 1, 0)){
-                    upper_left = result[result.size() - 1280 * 3 - 1];
+                if (result.size() - width * bytes_for_pixel - 1 >= std::max(i - width * bytes_for_pixel + 1, 0)){
+                    upper_left = result[result.size() - width * bytes_for_pixel - 1];
                 }
                 result.append(original[j] + Paeth_predictor(left, up, upper_left));
             }
@@ -257,6 +191,75 @@ QByteArray filter(const QByteArray &original) {
     }
 
     return result;
+}
+
+std::vector<Pixel> create_pixels(QByteArray uncompressed_bytes, int color_type, QMap<int, Pixel> palette){
+    std::vector<Pixel> pixels;
+    if (color_type == 0){
+        for (int i = 0; i < uncompressed_bytes.size(); i++) {
+            float channel1 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i])) / 255.0f;
+
+            Pixel current_pixel(channel1, channel1, channel1);
+            pixels.push_back(current_pixel);
+        }
+    } else if (color_type == 2){
+        for (int i = 0; i < uncompressed_bytes.size() - 2; i += 3) {
+            float channel1 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i])) / 255.0f;
+            float channel2 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i + 1])) / 255.0f;
+            float channel3 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i + 2])) / 255.0f;
+
+            Pixel current_pixel(channel1, channel2, channel3);
+            pixels.push_back(current_pixel);
+        }
+    } else if (color_type == 3){
+        for (int i = 0; i < uncompressed_bytes.size(); i++) {
+            unsigned char number_color = static_cast<unsigned char>(uncompressed_bytes[i]);
+
+            Pixel current_pixel(palette[number_color]);
+            pixels.push_back(current_pixel);
+        }
+    }
+
+    return pixels;
+}
+
+unsigned long crc_table[256];
+int crc_table_computed = 0;
+
+void make_crc_table()
+{
+    unsigned long c;
+    int n, k;
+
+    for (n = 0; n < 256; n++) {
+        c = (unsigned long) n;
+        for (k = 0; k < 8; k++) {
+            if (c & 1)
+                c = 0xedb88320L ^ (c >> 1);
+            else
+                c = c >> 1;
+        }
+        crc_table[n] = c;
+    }
+    crc_table_computed = 1;
+}
+
+unsigned long update_crc(unsigned long crc, unsigned char *buf, int len)
+{
+    unsigned long c = crc;
+    int n;
+
+    if (!crc_table_computed)
+        make_crc_table();
+    for (n = 0; n < len; n++) {
+        c = crc_table[(c ^ buf[n]) & 0xff] ^ (c >> 8);
+    }
+    return c;
+}
+
+unsigned long crc(unsigned char *buf, int len)
+{
+    return update_crc(0xffffffffL, buf, len) ^ 0xffffffffL;
 }
 
 
@@ -301,24 +304,27 @@ Image *PNGImageLoader::load(std::ifstream &in) {
 
         char sum_str[4];
         in.read(sum_str, 4);
+        unsigned int sum = bytes_to_int(sum_str);
         if (in.gcount() != 4) break;
+
+        std::vector<unsigned char> chunk;
+        chunk.insert(chunk.end(), type, type + 4);
+        chunk.insert(chunk.end(), data.begin(), data.end());
+
+        unsigned long crc_ = crc(&chunk[0], chunk.size());
+
+        if (crc_ != sum){
+            throw std::logic_error("The checksum does not match!");
+        }
 
         if (t == "IEND") break;
     }
 
     QByteArray img(reinterpret_cast<const char*>(compressed_bytes.data()), static_cast<int>(compressed_bytes.size()));
     QByteArray uncompressed_bytes = qGzipUncompress(img);
-    uncompressed_bytes = filter(uncompressed_bytes);
+    uncompressed_bytes = filter(uncompressed_bytes, width, height, color_type == 2 ? 3 : 1);
 
-    std::vector<Pixel> pixels;
-    for (int i = 0; i < uncompressed_bytes.size() - 2; i += 3) {
-        float channel1 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i])) / 255.0f;
-        float channel2 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i + 1])) / 255.0f;
-        float channel3 = static_cast<float>(static_cast<unsigned char>(uncompressed_bytes[i + 2])) / 255.0f;
-
-        Pixel current_pixel(channel1, channel2, channel3);
-        pixels.push_back(current_pixel);
-    }
+    std::vector<Pixel> pixels = create_pixels(uncompressed_bytes, color_type, palette);
 
     return new Image(width, height, pixels); // Assuming Image constructor takes width, height, and pixel data
 }
