@@ -89,6 +89,9 @@ set(PROJECT_SOURCES
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
 
         presentation/widgets/nearestneighbourinputwidget.h presentation/widgets/nearestneighbourinputwidget.cpp
+        presentation/widgets/bilinearinputwidget.h presentation/widgets/bilinearinputwidget.cpp
+        presentation/widgets/lanczos3inputwidget.h presentation/widgets/lanczos3inputwidget.cpp
+        presentation/widgets/bcsplineinputwidget.h presentation/widgets/bcsplineinputwidget.cpp
 
         main.cpp
 )

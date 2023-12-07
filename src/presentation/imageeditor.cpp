@@ -5,6 +5,9 @@
 #include "../domain/algorithms/drawhistogramalgorithm.h"
 #include "../domain/scaling/closestneighbouralgorithm.h"
 #include "widgets/nearestneighbourinputwidget.h"
+#include "widgets/bilinearinputwidget.h"
+#include "widgets/lanczos3inputwidget.h"
+#include "widgets/bcsplineinputwidget.h"
 #include <QPixmap>
 #include <QMessageBox>
 #include <string>
@@ -429,6 +432,10 @@ void ImageEditor::on_actionBilinear_triggered()
     if (_image_service->current_image() == nullptr)
         return;
 
+    auto w = new BilinearInputWidget(_image_service, this);
+
+    w->show();
+
     update_image_view();
 }
 
@@ -438,6 +445,10 @@ void ImageEditor::on_actionLanczos3_triggered()
     if (_image_service->current_image() == nullptr)
         return;
 
+    auto w = new Lanczos3InputWidget(_image_service, this);
+
+    w->show();
+
     update_image_view();
 }
 
@@ -446,6 +457,10 @@ void ImageEditor::on_actionBC_spline_triggered()
 {
     if (_image_service->current_image() == nullptr)
         return;
+
+    auto w = new BCSplineInputWidget(_image_service, this);
+
+    w->show();
 
     update_image_view();
 }
