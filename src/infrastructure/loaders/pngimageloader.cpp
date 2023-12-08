@@ -28,7 +28,6 @@ QByteArray qGzipUncompress(const QByteArray& data) {
     strm.zfree = Z_NULL;
     strm.opaque = Z_NULL;
 
-    // 15 + 32 means a window size of 15, and the 32 specifies to detect gzip or zlib header
     if (inflateInit2(&strm, 15 + 32) != Z_OK) {
         return QByteArray();
     }
@@ -54,7 +53,7 @@ QByteArray qGzipUncompress(const QByteArray& data) {
     inflateEnd(&strm);
 
     if (ret != Z_STREAM_END) {
-        return QByteArray(); // Decompression didn't finish successfully
+        return QByteArray();
     }
 
     return outBuffer;
@@ -65,47 +64,6 @@ unsigned int bytes_to_int(const char *bytes) {
            (static_cast<unsigned char>(bytes[1]) << 16) |
            (static_cast<unsigned char>(bytes[2]) << 8) |
            (static_cast<unsigned char>(bytes[3]));
-}
-void int_to_bytes(int x, char* ch, int bit) {
-    ch[3] = (char)(x & ((int)pow(2, bit) - 1));
-    ch[2] = (char)((x >> bit) & ((int)pow(2, bit) - 1));
-    ch[1] = (char)((x >> 2 * bit) & ((int)pow(2, bit) - 1));
-    ch[0] = (char)((x >> 3 * bit) & ((int)pow(2, bit) - 1));
-}
-
-
-QByteArray Compress(QByteArray postBody)
-{
-    QByteArray outBuf;
-    z_stream c_stream;
-    int err = 0;
-    int windowBits = 15;
-    int GZIP_ENCODING = 16;
-    if (!postBody.isEmpty())
-    {
-        c_stream.zalloc = (alloc_func)0;
-        c_stream.zfree = (free_func)0;
-        c_stream.opaque = (voidpf)0;
-        c_stream.next_in = (Bytef *)postBody.data();
-        c_stream.avail_in = postBody.size();
-        if (deflateInit2(&c_stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED,
-                         windowBits | GZIP_ENCODING, 8, Z_DEFAULT_STRATEGY) != Z_OK) return QByteArray();
-        for (;;) {
-            char destBuf[4096] = { 0 };
-            c_stream.next_out = (Bytef *)destBuf;
-            c_stream.avail_out = 4096;
-            int err = deflate(&c_stream, Z_FINISH);
-            outBuf.append(destBuf, 4096 - c_stream.avail_out);
-            if (err == Z_STREAM_END || err != Z_OK)
-            {
-                break;
-            }
-        }
-        auto total = c_stream.total_out;
-        deflateEnd(&c_stream);
-        total = c_stream.total_out;
-    }
-    return outBuf;
 }
 
 unsigned char Paeth_predictor(int left, int up, int upper_left){
