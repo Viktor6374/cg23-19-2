@@ -389,7 +389,7 @@ void ImageEditor::on_pushButton_4_clicked()
     if (_image_service->current_image() == nullptr || skip < 0 || skip >= 0.5)
         return;
 
-    _image_service->AutocorrectBrightness(skip);
+    _image_service->autocorrect_brightness(skip);
 
     update_image_view();
 }

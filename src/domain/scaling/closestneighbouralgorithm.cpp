@@ -1,5 +1,5 @@
 #include "closestneighbouralgorithm.h"
-#include <math.h>
+#include <cmath>
 
 ClosestNeighbourAlgorithm::ClosestNeighbourAlgorithm()
 {

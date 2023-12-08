@@ -31,7 +31,7 @@ public:
     void convert_to_gamma(float gamma);
     void assing_gamma(float gamma);
 
-    void AutocorrectBrightness(float skip);
+    void autocorrect_brightness(float skip);
 
     void scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm);
 

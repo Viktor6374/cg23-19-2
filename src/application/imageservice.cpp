@@ -2,6 +2,7 @@
 #include "../domain/algorithms/converttogammaalgorithm.h"
 #include "../domain/algorithms/drawlinealgorithm.h"
 #include "../domain/algorithms/brightnessautocorrectionalgorithm.h"
+#include "../domain/algorithms/channel1autocorrectionalgorithm.h"
 
 ImageService::ImageService()
 {
@@ -118,14 +119,24 @@ void ImageService::draw_line(Point point1, Point point2, Pixel color, float widt
 
 }
 
-void ImageService::AutocorrectBrightness(float skip)
+void ImageService::autocorrect_brightness(float skip)
 {
-    _color_space_converter->convert(_current_image, _current_color_space, RGB);
+    if (_current_color_space == YCbCr601
+            || _current_color_space == YCbCr709
+            || _current_color_space == YCoCg)
+    {
+        auto algorithm = Channel1AutocorrectionAlgorithm();
+        algorithm.execute(_current_image, skip);
+    }
+    else
+    {
+        _color_space_converter->convert(_current_image, _current_color_space, RGB);
 
-    auto algorithm = BrightnessAutocorrectionAlgorithm();
-    algorithm.execute(_current_image, skip);
+        auto algorithm = BrightnessAutocorrectionAlgorithm();
+        algorithm.execute(_current_image, skip);
 
-    _color_space_converter->convert(_current_image, RGB, _current_color_space);
+        _color_space_converter->convert(_current_image, RGB, _current_color_space);
+    }
 }
 
 void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm)
@@ -133,9 +144,14 @@ void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgo
     if (_current_image == nullptr)
             return;
 
+    auto scaler = ConvertToGammaAlgorithm();
+    scaler.execute(_current_image, _current_gamma, 1);
+
     Image *scaled_image = algorithm->execute(_current_image, new_width, new_height, shift);
 
     delete _current_image;
 
     _current_image = scaled_image;
+
+    scaler.execute(_current_image, 1, _current_gamma);
 }
