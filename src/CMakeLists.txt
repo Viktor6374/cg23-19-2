@@ -29,6 +29,7 @@ set(PROJECT_SOURCES
         domain/algorithms/createhistogramalgorithm.h domain/algorithms/createhistogramalgorithm.cpp
         domain/algorithms/drawhistogramalgorithm.h domain/algorithms/drawhistogramalgorithm.cpp
         domain/algorithms/brightnessautocorrectionalgorithm.h domain/algorithms/brightnessautocorrectionalgorithm.cpp
+        domain/algorithms/channel1autocorrectionalgorithm.h domain/algorithms/channel1autocorrectionalgorithm.cpp
 
         domain/converters/to_rgb/torgb_converter.h domain/converters/to_rgb/torgb_converter.cpp
         domain/converters/to_rgb/fromrgb_torgb_converter.h domain/converters/to_rgb/fromrgb_torgb_converter.cpp
@@ -60,6 +61,12 @@ set(PROJECT_SOURCES
 
         domain/factories/ditheringalgorithmfactory.h domain/factories/ditheringalgorithmfactory.cpp
 
+        domain/scaling/scalingalgorithm.h domain/scaling/scalingalgorithm.cpp
+        domain/scaling/closestneighbouralgorithm.h domain/scaling/closestneighbouralgorithm.cpp
+        domain/scaling/bilinearalgorithm.h domain/scaling/bilinearalgorithm.cpp
+        domain/scaling/lanczos3algorithm.h domain/scaling/lanczos3algorithm.cpp
+        domain/scaling/bcsplinealgorithm.h domain/scaling/bcsplinealgorithm.cpp
+
         application/imageservice.h application/imageservice.cpp
 
         infrastructure/imagerepository.h infrastructure/imagerepository.cpp
@@ -81,6 +88,11 @@ set(PROJECT_SOURCES
         presentation/converters/imageconverter.h presentation/converters/imageconverter.cpp
 
         presentation/imageeditor.h presentation/imageeditor.cpp presentation/imageeditor.ui
+
+        presentation/widgets/nearestneighbourinputwidget.h presentation/widgets/nearestneighbourinputwidget.cpp
+        presentation/widgets/bilinearinputwidget.h presentation/widgets/bilinearinputwidget.cpp
+        presentation/widgets/lanczos3inputwidget.h presentation/widgets/lanczos3inputwidget.cpp
+        presentation/widgets/bcsplineinputwidget.h presentation/widgets/bcsplineinputwidget.cpp
 
         main.cpp
 )

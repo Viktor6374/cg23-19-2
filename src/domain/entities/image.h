@@ -16,6 +16,9 @@ public:
     std::vector<Pixel>& pixels();
     const std::vector<Pixel>& pixels() const;
 
+    Pixel &pixel_at(int x, int y);
+    const Pixel &pixel_at(int x, int y) const;
+
 private:
     int _width;
     int _height;

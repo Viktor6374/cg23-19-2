@@ -3,9 +3,16 @@
 #include "../domain/algorithms/converttogammaalgorithm.h"
 #include "../domain/algorithms/createhistogramalgorithm.h"
 #include "../domain/algorithms/drawhistogramalgorithm.h"
+#include "../domain/scaling/closestneighbouralgorithm.h"
+#include "widgets/nearestneighbourinputwidget.h"
+#include "widgets/bilinearinputwidget.h"
+#include "widgets/lanczos3inputwidget.h"
+#include "widgets/bcsplineinputwidget.h"
 #include <QPixmap>
+#include <QMessageBox>
 #include <string>
 #include <stdexcept>
+#include <unistd.h>
 
 ImageEditor::ImageEditor(QWidget *parent)
     : QMainWindow(parent)
@@ -64,8 +71,8 @@ void ImageEditor::update_image_view()
 
     QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    double scale = (double)_ui->label_pic->height() / qImage->height();
-    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+//    double scale = (double)_ui->label_pic->height() / qImage->height();
+//    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_pic->setPixmap(pixmap);
 
@@ -93,8 +100,8 @@ void ImageEditor::update_hist1(const std::vector<int> &channel_values)
 
     QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    double scale = (double)_ui->label_hist1->height() / qImage->height();
-    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+//    double scale = (double)_ui->label_hist1->height() / qImage->height();
+//    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist1->setPixmap(pixmap);
 
@@ -110,8 +117,8 @@ void ImageEditor::update_hist2(const std::vector<int> &channel_values)
 
     QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    double scale = (double)_ui->label_hist1->height() / qImage->height();
-    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+//    double scale = (double)_ui->label_hist1->height() / qImage->height();
+//    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist2->setPixmap(pixmap);
 
@@ -127,8 +134,8 @@ void ImageEditor::update_hist3(const std::vector<int> &channel_values)
 
     QPixmap pixmap = QPixmap::fromImage(*qImage);
 
-    double scale = (double)_ui->label_hist1->height() / qImage->height();
-    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
+//    double scale = (double)_ui->label_hist1->height() / qImage->height();
+//    pixmap = pixmap.scaled(qImage->width() * scale, qImage->height() * scale);
 
     _ui->label_hist3->setPixmap(pixmap);
 
@@ -326,6 +333,13 @@ void ImageEditor::mousePressEvent(QMouseEvent *event)
                 1.0 * (cursorPos.y() - windowPos.y() - labelPos.y() - 45) / _ui->label_pic->height() * _image_service->current_image()->height(),
                 1.0);
 
+    if (point->x < 0 || point->x >= _image_service->current_image()->width()
+            || point->y < 0 || point->x >= _image_service->current_image()->height())
+    {
+        delete point;
+        return;
+    }
+
     if (_line_drawing_options.point1 == nullptr)
     {
         _line_drawing_options.point1 = point;
@@ -382,8 +396,78 @@ void ImageEditor::on_pushButton_4_clicked()
     if (_image_service->current_image() == nullptr || skip < 0 || skip >= 0.5)
         return;
 
-    _image_service->AutocorrectBrightness(skip);
+    _image_service->autocorrect_brightness(skip);
 
     update_image_view();
 }
 
+void ImageEditor::on_actionInfo_triggered()
+{
+    QMessageBox message_box;
+
+    QString info;
+
+    if (_image_service->current_image() == nullptr)
+    {
+        info.append("No image");
+    }
+    else
+    {
+        info.append("Image width: " + QString::number(_image_service->current_image()->width()) + "\n");
+        info.append("Image height: " + QString::number(_image_service->current_image()->height()));
+    }
+
+    message_box.setText(info);
+
+    message_box.exec();
+}
+
+void ImageEditor::on_actionNearest_neighbour_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new NearestNeighbourInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+void ImageEditor::on_actionBilinear_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new BilinearInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionLanczos3_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new Lanczos3InputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionBC_spline_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new BCSplineInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}

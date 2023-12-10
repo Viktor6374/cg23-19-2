@@ -19,6 +19,8 @@ public:
     ImageEditor(QWidget *parent = nullptr);
     ~ImageEditor();
 
+    void update_image_view();
+
 private slots:
     void on_pushButton_clicked();
 
@@ -50,8 +52,17 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_actionNearest_neighbour_triggered();
+
+    void on_actionBilinear_triggered();
+
+    void on_actionLanczos3_triggered();
+
+    void on_actionBC_spline_triggered();
+
+    void on_actionInfo_triggered();
+
 private:
-    void update_image_view();
     void update_hists(Image *image);
     void update_hist1(const std::vector<int> &channel_values);
     void update_hist2(const std::vector<int> &channel_values);

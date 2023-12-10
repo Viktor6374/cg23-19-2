@@ -6,6 +6,7 @@
 #include "../domain/converters/colorspaceconverter.h"
 #include "../domain/models/colorspace.h"
 #include "../domain/models/point.h"
+#include "../domain/scaling/scalingalgorithm.h"
 #include <string>
 
 class ImageService
@@ -30,7 +31,9 @@ public:
     void convert_to_gamma(float gamma);
     void assing_gamma(float gamma);
 
-    void AutocorrectBrightness(float skip);
+    void autocorrect_brightness(float skip);
+
+    void scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm);
 
 private:
     ImageRepository *_image_repository;
