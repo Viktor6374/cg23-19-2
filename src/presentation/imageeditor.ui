@@ -781,8 +781,23 @@
     </property>
     <addaction name="actionInfo"/>
    </widget>
+   <widget class="QMenu" name="menuFilters">
+    <property name="title">
+     <string>Filters</string>
+    </property>
+    <addaction name="actionThreshold"/>
+    <addaction name="actionOtsu_threshold"/>
+    <addaction name="actionMedian_filter"/>
+    <addaction name="actionGauss_filter"/>
+    <addaction name="actionbox_blur"/>
+    <addaction name="actionUnsharp_masking"/>
+    <addaction name="actionContrast_adaptive_sharpening"/>
+    <addaction name="actionSobel_filter"/>
+    <addaction name="actionCanny_edge_detector"/>
+   </widget>
    <addaction name="menuInfo"/>
    <addaction name="menuScaling"/>
+   <addaction name="menuFilters"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNearest_neighbour">
@@ -808,6 +823,51 @@
   <action name="actionInfo">
    <property name="text">
     <string>Info</string>
+   </property>
+  </action>
+  <action name="actionThreshold">
+   <property name="text">
+    <string>Threshold filter</string>
+   </property>
+  </action>
+  <action name="actionOtsu_threshold">
+   <property name="text">
+    <string>Otsu threshold filter</string>
+   </property>
+  </action>
+  <action name="actionMedian_filter">
+   <property name="text">
+    <string>Median filter</string>
+   </property>
+  </action>
+  <action name="actionGauss_filter">
+   <property name="text">
+    <string>Gauss filter</string>
+   </property>
+  </action>
+  <action name="actionbox_blur">
+   <property name="text">
+    <string>Box blur</string>
+   </property>
+  </action>
+  <action name="actionUnsharp_masking">
+   <property name="text">
+    <string>Unsharp masking</string>
+   </property>
+  </action>
+  <action name="actionContrast_adaptive_sharpening">
+   <property name="text">
+    <string>Contrast adaptive sharpening</string>
+   </property>
+  </action>
+  <action name="actionSobel_filter">
+   <property name="text">
+    <string>Sobel filter</string>
+   </property>
+  </action>
+  <action name="actionCanny_edge_detector">
+   <property name="text">
+    <string>Canny edge detector</string>
    </property>
   </action>
  </widget>

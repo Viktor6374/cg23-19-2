@@ -121,6 +121,9 @@ void ImageService::draw_line(Point point1, Point point2, Pixel color, float widt
 
 void ImageService::autocorrect_brightness(float skip)
 {
+    auto gamma_alg = ConvertToGammaAlgorithm();
+    gamma_alg.execute(_current_image, _current_gamma, 1);
+
     if (_current_color_space == YCbCr601
             || _current_color_space == YCbCr709
             || _current_color_space == YCoCg)
@@ -137,6 +140,8 @@ void ImageService::autocorrect_brightness(float skip)
 
         _color_space_converter->convert(_current_image, RGB, _current_color_space);
     }
+
+    gamma_alg.execute(_current_image, 1, _current_gamma);
 }
 
 void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm)
@@ -144,8 +149,8 @@ void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgo
     if (_current_image == nullptr)
             return;
 
-    auto scaler = ConvertToGammaAlgorithm();
-    scaler.execute(_current_image, _current_gamma, 1);
+    auto gamma_alg = ConvertToGammaAlgorithm();
+    gamma_alg.execute(_current_image, _current_gamma, 1);
 
     Image *scaled_image = algorithm->execute(_current_image, new_width, new_height, shift);
 
@@ -153,5 +158,5 @@ void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgo
 
     _current_image = scaled_image;
 
-    scaler.execute(_current_image, 1, _current_gamma);
+    gamma_alg.execute(_current_image, 1, _current_gamma);
 }
