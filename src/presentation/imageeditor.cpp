@@ -333,6 +333,13 @@ void ImageEditor::mousePressEvent(QMouseEvent *event)
                 1.0 * (cursorPos.y() - windowPos.y() - labelPos.y() - 45) / _ui->label_pic->height() * _image_service->current_image()->height(),
                 1.0);
 
+    if (point->x < 0 || point->x >= _image_service->current_image()->width()
+            || point->y < 0 || point->x >= _image_service->current_image()->height())
+    {
+        delete point;
+        return;
+    }
+
     if (_line_drawing_options.point1 == nullptr)
     {
         _line_drawing_options.point1 = point;
