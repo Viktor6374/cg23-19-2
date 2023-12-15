@@ -160,3 +160,8 @@ void ImageService::scale(int new_width, int new_height, Point shift, ScalingAlgo
 
     gamma_alg.execute(_current_image, 1, _current_gamma);
 }
+
+void ImageService::use_filter(ImageFilter *filter)
+{
+    filter->execute(_current_image);
+}
