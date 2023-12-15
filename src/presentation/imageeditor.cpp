@@ -8,6 +8,15 @@
 #include "widgets/bilinearinputwidget.h"
 #include "widgets/lanczos3inputwidget.h"
 #include "widgets/bcsplineinputwidget.h"
+#include "widgets/thresholdfilterinputwidget.h"
+#include "widgets/otsuthresholdfilterinputwidget.h"
+#include "widgets/medianfilterinputwidget.h"
+#include "widgets/gaussfilterinputwidget.h"
+#include "widgets/boxblurinputwidget.h"
+#include "widgets/unsharpmaskinginputwidget.h"
+#include "widgets/contrastadaptivesharpeninginputwidget.h"
+#include "widgets/sobelfilterinputwidget.h"
+#include "widgets/cannyedgedetectorinputfilter.h"
 #include <QPixmap>
 #include <QMessageBox>
 #include <string>
@@ -466,6 +475,122 @@ void ImageEditor::on_actionBC_spline_triggered()
         return;
 
     auto w = new BCSplineInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+void ImageEditor::on_actionThreshold_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new ThresholdFilterInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionOtsu_threshold_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new OtsuThresholdFilterInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionMedian_filter_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new MedianFilterInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionGauss_filter_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new GaussFilterInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionbox_blur_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new BoxBlurInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionUnsharp_masking_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new UnsharpMaskingInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionContrast_adaptive_sharpening_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new ContrastAdaptiveSharpeningInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionSobel_filter_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new SobelFilterInputWidget(_image_service, this);
+
+    w->show();
+
+    update_image_view();
+}
+
+
+void ImageEditor::on_actionCanny_edge_detector_triggered()
+{
+    if (_image_service->current_image() == nullptr)
+        return;
+
+    auto w = new CannyEdgeDetectorInputFilter(_image_service, this);
 
     w->show();
 

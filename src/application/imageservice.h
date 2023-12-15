@@ -7,6 +7,7 @@
 #include "../domain/models/colorspace.h"
 #include "../domain/models/point.h"
 #include "../domain/scaling/scalingalgorithm.h"
+#include "../domain/filters/imagefilter.h"
 #include <string>
 
 class ImageService
@@ -34,6 +35,8 @@ public:
     void autocorrect_brightness(float skip);
 
     void scale(int new_width, int new_height, Point shift, ScalingAlgorithm *algorithm);
+
+    void use_filter(ImageFilter *filter);
 
 private:
     ImageRepository *_image_repository;
