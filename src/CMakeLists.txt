@@ -67,6 +67,17 @@ set(PROJECT_SOURCES
         domain/scaling/lanczos3algorithm.h domain/scaling/lanczos3algorithm.cpp
         domain/scaling/bcsplinealgorithm.h domain/scaling/bcsplinealgorithm.cpp
 
+        domain/filters/imagefilter.h domain/filters/imagefilter.cpp
+        domain/filters/thresholdfilter.h domain/filters/thresholdfilter.cpp
+        domain/filters/otsuthresholdfilter.h domain/filters/otsuthresholdfilter.cpp
+        domain/filters/medianfilter.h domain/filters/medianfilter.cpp
+        domain/filters/gaussfilter.h domain/filters/gaussfilter.cpp
+        domain/filters/boxblurfilter.h domain/filters/boxblurfilter.cpp
+        domain/filters/unsharpmaskingfilter.h domain/filters/unsharpmaskingfilter.cpp
+        domain/filters/contrastadaptivesharpeningfilter.h domain/filters/contrastadaptivesharpeningfilter.cpp
+        domain/filters/sobelfilter.h domain/filters/sobelfilter.cpp
+        domain/filters/cannyedgedetectorfilter.h domain/filters/cannyedgedetectorfilter.cpp
+
         application/imageservice.h application/imageservice.cpp
 
         infrastructure/imagerepository.h infrastructure/imagerepository.cpp
@@ -93,6 +104,15 @@ set(PROJECT_SOURCES
         presentation/widgets/bilinearinputwidget.h presentation/widgets/bilinearinputwidget.cpp
         presentation/widgets/lanczos3inputwidget.h presentation/widgets/lanczos3inputwidget.cpp
         presentation/widgets/bcsplineinputwidget.h presentation/widgets/bcsplineinputwidget.cpp
+        presentation/widgets/thresholdfilterinputwidget.h presentation/widgets/thresholdfilterinputwidget.cpp
+        presentation/widgets/otsuthresholdfilterinputwidget.h presentation/widgets/otsuthresholdfilterinputwidget.cpp
+        presentation/widgets/medianfilterinputwidget.h presentation/widgets/medianfilterinputwidget.cpp
+        presentation/widgets/gaussfilterinputwidget.h presentation/widgets/gaussfilterinputwidget.cpp
+        presentation/widgets/boxblurinputwidget.h presentation/widgets/boxblurinputwidget.cpp
+        presentation/widgets/unsharpmaskinginputwidget.h presentation/widgets/unsharpmaskinginputwidget.cpp
+        presentation/widgets/contrastadaptivesharpeninginputwidget.h presentation/widgets/contrastadaptivesharpeninginputwidget.cpp
+        presentation/widgets/sobelfilterinputwidget.h presentation/widgets/sobelfilterinputwidget.cpp
+        presentation/widgets/cannyedgedetectorinputfilter.h presentation/widgets/cannyedgedetectorinputfilter.cpp
 
         main.cpp
 )

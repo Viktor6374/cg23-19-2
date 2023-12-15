@@ -62,6 +62,24 @@ private slots:
 
     void on_actionInfo_triggered();
 
+    void on_actionThreshold_triggered();
+
+    void on_actionOtsu_threshold_triggered();
+
+    void on_actionMedian_filter_triggered();
+
+    void on_actionGauss_filter_triggered();
+
+    void on_actionbox_blur_triggered();
+
+    void on_actionUnsharp_masking_triggered();
+
+    void on_actionContrast_adaptive_sharpening_triggered();
+
+    void on_actionSobel_filter_triggered();
+
+    void on_actionCanny_edge_detector_triggered();
+
 private:
     void update_hists(Image *image);
     void update_hist1(const std::vector<int> &channel_values);
